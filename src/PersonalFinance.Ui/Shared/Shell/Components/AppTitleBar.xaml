@@ -16,6 +16,7 @@
                            BorderThickness="0"
                            CornerRadius="8"
                            Appearance="Transparent"
+                           ToolTipService.ToolTip="{DynamicResource Common.Back}"
                            Command="{Binding BackCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                            IsEnabled="{Binding IsBackEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}">
                     <ui:Button.Icon>

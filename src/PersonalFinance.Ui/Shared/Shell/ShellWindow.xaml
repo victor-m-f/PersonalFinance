@@ -8,7 +8,7 @@
                  xmlns:expenses="clr-namespace:PersonalFinance.Ui.Features.Expenses.Views"
                  xmlns:categories="clr-namespace:PersonalFinance.Ui.Features.Categories.Views"
                  xmlns:settings="clr-namespace:PersonalFinance.Ui.Features.Settings.Views"
-                 Title="PersonalFinance"
+                 Title="{DynamicResource App.Title}"
                  Width="1200"
                  Height="800"
                  ExtendsContentIntoTitleBar="True"
@@ -28,7 +28,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <components:AppTitleBar Grid.Row="0"
-                                TitleText="PersonalFinance"
+                                TitleText="{DynamicResource App.Title}"
                                 IsBackEnabled="{Binding ElementName=NavigationView, Path=IsBackEnabled}"
                                 BackCommand="{Binding BackCommand}" />
         <ui:NavigationView Grid.Row="1"
@@ -38,34 +38,44 @@
                            PaneDisplayMode="LeftFluent"
                            IsPaneToggleVisible="False"
                            IsPaneOpen="True"
-                           CompactPaneLength="72"
-                           OpenPaneLength="72"
+                           OpenPaneLength="100"
                            IsBackButtonVisible="Collapsed">
+            <ui:NavigationView.Resources>
+                <Style TargetType="{x:Type ui:NavigationViewItem}" BasedOn="{StaticResource NavigationViewItemDefaultStyle}">
+                    <Setter Property="ContentTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" TextWrapping="Wrap" TextTrimming="None" />
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ui:NavigationView.Resources>
             <ui:NavigationView.MenuItems>
-                <ui:NavigationViewItem Content="Expenses"
+                <ui:NavigationViewItem Content="{DynamicResource Nav.Expenses}"
                                        TargetPageType="{x:Type expenses:ExpensesPage}"
                                        Command="{Binding NavigateCommand}"
                                        CommandParameter="{Binding TargetPageType, RelativeSource={RelativeSource Self}}">
                     <ui:NavigationViewItem.Icon>
-                        <ui:SymbolIcon Symbol="Money24" FontSize="22" />
+                        <ui:SymbolIcon Symbol="Money24" FontSize="26" />
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
-                <ui:NavigationViewItem Content="Categories"
+                <ui:NavigationViewItem Content="{DynamicResource Nav.Categories}"
                                        TargetPageType="{x:Type categories:CategoriesPage}"
                                        Command="{Binding NavigateCommand}"
                                        CommandParameter="{Binding TargetPageType, RelativeSource={RelativeSource Self}}">
                     <ui:NavigationViewItem.Icon>
-                        <ui:SymbolIcon Symbol="Tag24" FontSize="22" />
+                        <ui:SymbolIcon Symbol="Tag24" FontSize="26" />
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
             </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>
-                <ui:NavigationViewItem Content="Settings"
+                <ui:NavigationViewItem Content="{DynamicResource Nav.Settings}"
                                        TargetPageType="{x:Type settings:SettingsPage}"
                                        Command="{Binding NavigateCommand}"
                                        CommandParameter="{Binding TargetPageType, RelativeSource={RelativeSource Self}}">
                     <ui:NavigationViewItem.Icon>
-                        <ui:SymbolIcon Symbol="Settings24" FontSize="22" />
+                        <ui:SymbolIcon Symbol="Settings24" FontSize="26" />
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
             </ui:NavigationView.FooterMenuItems>

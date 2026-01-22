@@ -6,6 +6,12 @@ namespace PersonalFinance.Ui.Settings;
 
 public sealed class AppSettingsStore
 {
+    private static readonly HashSet<string> SupportedCultures = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "en-US",
+        "pt-BR"
+    };
+
     private static readonly JsonSerializerOptions SerializerOptions = new()
     {
         WriteIndented = true,
@@ -28,7 +34,9 @@ public sealed class AppSettingsStore
             }
 
             var settings = JsonSerializer.Deserialize<AppSettings>(json, SerializerOptions);
-            return settings ?? new AppSettings();
+            var normalized = settings ?? new AppSettings();
+            normalized.CultureName = NormalizeCultureName(normalized.CultureName);
+            return normalized;
         }
         catch
         {
@@ -46,7 +54,16 @@ public sealed class AppSettingsStore
         }
         catch
         {
-            // Ignore persistence errors.
         }
+    }
+
+    private static string NormalizeCultureName(string? cultureName)
+    {
+        if (string.IsNullOrWhiteSpace(cultureName))
+        {
+            return "en-US";
+        }
+
+        return SupportedCultures.Contains(cultureName) ? cultureName : "en-US";
     }
 }

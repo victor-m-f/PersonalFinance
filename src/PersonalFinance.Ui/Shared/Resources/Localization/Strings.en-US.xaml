@@ -1,0 +1,24 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="App.Title">PersonalFinance</sys:String>
+    <sys:String x:Key="Nav.Expenses">Expenses</sys:String>
+    <sys:String x:Key="Nav.Categories">Categories</sys:String>
+    <sys:String x:Key="Nav.Settings">Settings</sys:String>
+    <sys:String x:Key="Settings.Title">Settings</sys:String>
+    <sys:String x:Key="Settings.AppearanceAndBehavior">Appearance &amp; behaviour</sys:String>
+    <sys:String x:Key="Settings.ThemeTitle">App theme</sys:String>
+    <sys:String x:Key="Settings.ThemeDescription">Select which app theme to display</sys:String>
+    <sys:String x:Key="Settings.Theme.SystemDefault">System Default</sys:String>
+    <sys:String x:Key="Settings.Theme.Light">Light</sys:String>
+    <sys:String x:Key="Settings.Theme.Dark">Dark</sys:String>
+    <sys:String x:Key="Settings.Language">Language</sys:String>
+    <sys:String x:Key="Settings.LanguageDescription">Choose the app language</sys:String>
+    <sys:String x:Key="Settings.Language.English">English</sys:String>
+    <sys:String x:Key="Settings.Language.Portuguese">Portuguese</sys:String>
+    <sys:String x:Key="Common.Back">Back</sys:String>
+    <sys:String x:Key="Expenses.Title">Expenses</sys:String>
+    <sys:String x:Key="Expenses.Add">Add expense</sys:String>
+    <sys:String x:Key="Categories.Title">Categories</sys:String>
+    <sys:String x:Key="Categories.Add">Add category</sys:String>
+</ResourceDictionary>

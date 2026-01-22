@@ -1,16 +1,16 @@
 <Page x:Class="PersonalFinance.Ui.Features.Categories.Views.CategoriesPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      Title="Categories">
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="{DynamicResource Categories.Title}">
     <Grid>
         <ui:Card Margin="24">
             <StackPanel>
-                <TextBlock Text="Categories" FontSize="28" FontWeight="SemiBold" />
+                <TextBlock Text="{DynamicResource Categories.Title}" FontSize="28" FontWeight="SemiBold" />
                 <ui:Button Margin="0,16,0,0" Command="{Binding AddCategoryCommand}">
                     <StackPanel Orientation="Horizontal">
                         <ui:SymbolIcon Symbol="Add24" Margin="0,0,8,0" />
-                        <TextBlock Text="Add category" />
+                        <TextBlock Text="{DynamicResource Categories.Add}" />
                     </StackPanel>
                 </ui:Button>
             </StackPanel>

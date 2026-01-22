@@ -3,6 +3,7 @@ namespace PersonalFinance.Ui.Settings;
 public sealed class AppSettings
 {
     public AppThemePreference Theme { get; set; } = AppThemePreference.System;
+    public string CultureName { get; set; } = "en-US";
 }
 
 public enum AppThemePreference
