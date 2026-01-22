@@ -10,6 +10,19 @@
     <PackageReference Include="WPF-UI" Version="4.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Remove="Resources\Brushes\Brand.xaml" />
+    <Page Remove="Resources\Styles\Buttons.xaml" />
+    <Page Remove="Resources\Styles\Layout.xaml" />
+    <Page Remove="Resources\Styles\Typography.xaml" />
+    <Page Remove="Views\Pages\ExpensesPage.xaml" />
+    <Page Remove="Views\Pages\CategoriesPage.xaml" />
+    <Page Remove="Views\Pages\SettingsPage.xaml" />
+    <Compile Remove="Views\Pages\ExpensesPage.xaml.cs" />
+    <Compile Remove="Views\Pages\CategoriesPage.xaml.cs" />
+    <Compile Remove="Views\Pages\SettingsPage.xaml.cs" />
+  </ItemGroup>
+
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>

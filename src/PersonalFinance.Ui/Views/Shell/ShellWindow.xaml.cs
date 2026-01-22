@@ -17,22 +17,25 @@ public partial class ShellWindow : FluentWindow
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
         Loaded -= OnLoaded;
-        NavigationView.NavigateWithHierarchy(typeof(ExpensesPage));
+        var pageType = typeof(ExpensesPage);
+        NavigationView.NavigateWithHierarchy(pageType);
     }
 
     private void OnNavigationSelectionChanged(NavigationView sender, RoutedEventArgs e)
     {
-        if (sender.SelectedItem is not NavigationViewItem item)
+        var item = sender.SelectedItem as NavigationViewItem;
+        if (item is null)
         {
             return;
         }
 
-        if (item.TargetPageType is null)
+        var targetPageType = item.TargetPageType;
+        if (targetPageType is null)
         {
             return;
         }
 
-        sender.NavigateWithHierarchy(item.TargetPageType);
+        sender.NavigateWithHierarchy(targetPageType);
     }
 
     private void OnBackRequested(object sender, RoutedEventArgs e)

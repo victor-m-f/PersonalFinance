@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using PersonalFinance.Ui.Views;
+using PersonalFinance.Ui.Views.Shell;
 
 namespace PersonalFinance.Ui;
 

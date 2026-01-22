@@ -2,25 +2,30 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml">
-    <ui:TitleBar Title="" Padding="0" Margin="6,6,0,0">
+    <ui:TitleBar Title="" Padding="0">
         <ui:TitleBar.Header>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <ui:Button Grid.Column="0"
-                           Style="{StaticResource BackIconButtonStyle}"
                            Width="50"
-                           Height="40"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Foreground="{ui:ThemeResource TextFillColorPrimaryBrush}"
+                           BorderThickness="0"
+                           Background="Transparent"
+                           CornerRadius="8"
                            Click="OnBackClick"
+                           Appearance="Transparent"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch"
+                           MouseOverBackground="{ui:ThemeResource ControlFillColorDefaultBrush}"
+                           PressedBackground="{ui:ThemeResource ControlFillColorSecondaryBrush}"
                            IsEnabled="{Binding IsBackEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}">
-                    <ui:SymbolIcon Symbol="ArrowLeft24" FontSize="16" />
+                    <ui:Button.Icon>
+                        <ui:SymbolIcon Symbol="ArrowLeft24" FontSize="16" />
+                    </ui:Button.Icon>
                 </ui:Button>
-                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="16,0,0,0">
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
                     <ui:SymbolIcon Symbol="Wallet24" FontSize="18" Margin="0,0,6,0" />
                     <TextBlock Text="{Binding TitleText, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                FontSize="16"
