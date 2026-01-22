@@ -8,8 +8,8 @@ namespace PersonalFinance.Ui.Features.Settings.ViewModels;
 
 public sealed class SettingsPageViewModel : ObservableObject
 {
-    private readonly AppSettingsStore _settingsStore = new();
-    private readonly LocalizationService _localizationService;
+    private readonly AppSettingsStore _settingsStore;
+    private readonly ILocalizationService _localizationService;
     private readonly AppSettings _settings = new();
     private readonly bool _isInitializing;
     private string _selectedCulture = "en-US";
@@ -28,11 +28,14 @@ public sealed class SettingsPageViewModel : ObservableObject
         set => SetProperty(ref _selectedTheme, value);
     }
 
-    public SettingsPageViewModel()
+    public SettingsPageViewModel(
+        AppSettingsStore settingsStore,
+        ILocalizationService localizationService)
     {
         ThemeSelectionChangedCommand = new RelayCommand<string?>(OnThemeSelectionChanged);
         CultureSelectionChangedCommand = new RelayCommand<string?>(OnCultureSelectionChanged);
-        _localizationService = new LocalizationService(_settingsStore);
+        _settingsStore = settingsStore;
+        _localizationService = localizationService;
 
         _isInitializing = true;
         _settings = _settingsStore.LoadOrDefault();

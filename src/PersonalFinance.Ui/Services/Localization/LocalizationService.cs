@@ -16,12 +16,6 @@ public sealed class LocalizationService : ILocalizationService
     public CultureInfo CurrentCulture { get; private set; }
     public IReadOnlyList<CultureInfo> SupportedCultures => _supportedCultures;
 
-    public LocalizationService()
-    {
-        _settingsStore = new AppSettingsStore();
-        CurrentCulture = CultureInfo.GetCultureInfo("en-US");
-    }
-
     public LocalizationService(AppSettingsStore settingsStore)
     {
         _settingsStore = settingsStore;

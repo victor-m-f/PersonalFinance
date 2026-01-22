@@ -4,7 +4,6 @@
                  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
                  xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
                  xmlns:components="clr-namespace:PersonalFinance.Ui.Shared.Shell.Components"
-                 xmlns:viewModels="clr-namespace:PersonalFinance.Ui.Shared.Shell.ViewModels"
                  xmlns:expenses="clr-namespace:PersonalFinance.Ui.Features.Expenses.Views"
                  xmlns:categories="clr-namespace:PersonalFinance.Ui.Features.Categories.Views"
                  xmlns:settings="clr-namespace:PersonalFinance.Ui.Features.Settings.Views"
@@ -14,9 +13,6 @@
                  ExtendsContentIntoTitleBar="True"
                  Background="{DynamicResource ApplicationBackgroundBrush}"
                  Foreground="{DynamicResource TextFillColorPrimaryBrush}">
-    <ui:FluentWindow.DataContext>
-        <viewModels:ShellViewModel />
-    </ui:FluentWindow.DataContext>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding InitializeCommand}" />
