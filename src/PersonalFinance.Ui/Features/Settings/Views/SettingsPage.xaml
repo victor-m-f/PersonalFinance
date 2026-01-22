@@ -2,7 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:components="clr-namespace:PersonalFinance.Ui.Features.Settings.Components"
     Title="{DynamicResource Settings.Title}">
     <Grid>
         <Grid Margin="24">
@@ -11,66 +11,13 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Text="{DynamicResource Settings.Title}" FontSize="28" FontWeight="SemiBold" />
             <TextBlock Grid.Row="1" Text="{DynamicResource Settings.AppearanceAndBehavior}" Margin="0,24,0,12" FontSize="16" FontWeight="SemiBold" />
-            <ui:Card Grid.Row="2" Padding="16">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <ui:FontIcon Glyph="&#xE790;" FontFamily="{DynamicResource SegoeFluentIcons}" FontSize="28" VerticalAlignment="Center" Margin="0,0,12,0" />
-                    <StackPanel Grid.Column="1">
-                        <TextBlock Text="{DynamicResource Settings.ThemeTitle}" FontWeight="SemiBold" />
-                        <TextBlock Text="{DynamicResource Settings.ThemeDescription}" Opacity="0.7" Margin="0,4,0,0" />
-                    </StackPanel>
-                    <ComboBox Grid.Column="2"
-                              MinWidth="160"
-                              VerticalAlignment="Center"
-                              SelectedValuePath="Tag"
-                              SelectedValue="{Binding SelectedTheme, Mode=TwoWay}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{Binding ThemeSelectionChangedCommand}"
-                                                       CommandParameter="{Binding SelectedValue, RelativeSource={RelativeSource AncestorType=ComboBox}}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <ComboBoxItem Content="{DynamicResource Settings.Theme.SystemDefault}" Tag="System" />
-                        <ComboBoxItem Content="{DynamicResource Settings.Theme.Light}" Tag="Light" />
-                        <ComboBoxItem Content="{DynamicResource Settings.Theme.Dark}" Tag="Dark" />
-                    </ComboBox>
-                </Grid>
-            </ui:Card>
-            <ui:Card Grid.Row="3" Padding="16" Margin="0,16,0,0">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <ui:FontIcon Glyph="&#xE775;" FontFamily="{DynamicResource SegoeFluentIcons}" FontSize="28" VerticalAlignment="Center" Margin="0,0,12,0" />
-                    <StackPanel Grid.Column="1">
-                        <TextBlock Text="{DynamicResource Settings.Language}" FontWeight="SemiBold" />
-                        <TextBlock Text="{DynamicResource Settings.LanguageDescription}" Opacity="0.7" Margin="0,4,0,0" />
-                    </StackPanel>
-                    <ComboBox Grid.Column="2"
-                              MinWidth="160"
-                              VerticalAlignment="Center"
-                              SelectedValuePath="Tag"
-                              SelectedValue="{Binding SelectedCulture, Mode=TwoWay}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{Binding CultureSelectionChangedCommand}"
-                                                       CommandParameter="{Binding SelectedValue, RelativeSource={RelativeSource AncestorType=ComboBox}}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <ComboBoxItem Content="English" Tag="en-US" />
-                        <ComboBoxItem Content="Português" Tag="pt-BR" />
-                    </ComboBox>
-                </Grid>
-            </ui:Card>
+            <components:ThemeSettingsControl Grid.Row="2" />
+            <components:LanguageSettingsControl Grid.Row="3" />
+            <components:LoggingSettingsControl Grid.Row="4" />
         </Grid>
     </Grid>
 </Page>

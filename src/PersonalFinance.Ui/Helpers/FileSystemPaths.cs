@@ -10,4 +10,6 @@ public static class FileSystemPaths
     );
 
     public static string SettingsFilePath => Path.Combine(LocalAppDataFolder, "settings.json");
+
+    public static string LogsFolder => Path.Combine(LocalAppDataFolder, "logs");
 }

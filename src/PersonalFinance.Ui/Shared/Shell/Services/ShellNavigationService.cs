@@ -22,6 +22,14 @@ public sealed class ShellNavigationService
             return false;
         }
 
+        if (_navigationView.SelectedItem is INavigationViewItem selectedItem)
+        {
+            if (selectedItem.TargetPageType == pageType)
+            {
+                return true;
+            }
+        }
+
         return _navigationView.NavigateWithHierarchy(pageType);
     }
 

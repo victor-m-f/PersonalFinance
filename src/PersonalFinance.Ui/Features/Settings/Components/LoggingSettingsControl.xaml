@@ -1,0 +1,28 @@
+<UserControl x:Class="PersonalFinance.Ui.Features.Settings.Components.LoggingSettingsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml">
+    <ui:Card Padding="16" Margin="0,16,0,0">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <ui:FontIcon Glyph="&#xE9D2;" FontFamily="{DynamicResource SegoeFluentIcons}" FontSize="28" VerticalAlignment="Center" Margin="0,0,12,0" />
+            <StackPanel Grid.Column="1">
+                <TextBlock Text="{DynamicResource Settings.LoggingTitle}" FontWeight="SemiBold" />
+                <TextBlock Text="{DynamicResource Settings.LoggingDescription}" Opacity="0.7" Margin="0,4,0,0" />
+            </StackPanel>
+            <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                <ui:ToggleSwitch Margin="0,0,12,0"
+                                 IsChecked="{Binding VerboseLogging, Mode=TwoWay}"
+                                 Content="{DynamicResource Settings.LoggingVerbose}"
+                                 Command="{Binding VerboseLoggingChangedCommand}"
+                                 CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" />
+                <ui:Button Content="{DynamicResource Settings.LoggingOpenFolder}"
+                           Command="{Binding OpenLogsFolderCommand}" />
+            </StackPanel>
+        </Grid>
+    </ui:Card>
+</UserControl>

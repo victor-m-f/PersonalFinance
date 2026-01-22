@@ -16,6 +16,10 @@
     <sys:String x:Key="Settings.LanguageDescription">Escolha o idioma do aplicativo</sys:String>
     <sys:String x:Key="Settings.Language.English">Inglês</sys:String>
     <sys:String x:Key="Settings.Language.Portuguese">Português</sys:String>
+    <sys:String x:Key="Settings.LoggingTitle">Logs</sys:String>
+    <sys:String x:Key="Settings.LoggingDescription">Gerencie as configurações de logs</sys:String>
+    <sys:String x:Key="Settings.LoggingVerbose">Logs detalhados</sys:String>
+    <sys:String x:Key="Settings.LoggingOpenFolder">Abrir pasta de logs</sys:String>
     <sys:String x:Key="Common.Back">Voltar</sys:String>
     <sys:String x:Key="Expenses.Title">Despesas</sys:String>
     <sys:String x:Key="Expenses.Add">Adicionar despesa</sys:String>

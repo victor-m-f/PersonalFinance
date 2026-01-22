@@ -1,11 +1,13 @@
 using System.Globalization;
-using System.Windows;
+using Microsoft.Extensions.Logging;
 using PersonalFinance.Ui.Settings;
+using System.Windows;
 
 namespace PersonalFinance.Ui.Services.Localization;
 
 public sealed class LocalizationService : ILocalizationService
 {
+    private readonly ILogger<LocalizationService> _logger;
     private readonly AppSettingsStore _settingsStore;
     private readonly IReadOnlyList<CultureInfo> _supportedCultures =
     [
@@ -16,14 +18,16 @@ public sealed class LocalizationService : ILocalizationService
     public CultureInfo CurrentCulture { get; private set; }
     public IReadOnlyList<CultureInfo> SupportedCultures => _supportedCultures;
 
-    public LocalizationService(AppSettingsStore settingsStore)
+    public LocalizationService(AppSettingsStore settingsStore, ILogger<LocalizationService> logger)
     {
         _settingsStore = settingsStore;
+        _logger = logger;
         CurrentCulture = CultureInfo.GetCultureInfo("en-US");
     }
     public void InitializeFromSettings()
     {
         var settings = _settingsStore.LoadOrDefault();
+        _logger.LogInformation("Initializing localization with {Culture}", settings.CultureName);
         SetCulture(settings.CultureName);
     }
 
@@ -35,6 +39,8 @@ public sealed class LocalizationService : ILocalizationService
         CultureInfo.CurrentUICulture = culture;
 
         SwapLocalizationDictionary(culture.Name);
+
+        _logger.LogInformation("Localization set to {Culture}", culture.Name);
 
         var settings = _settingsStore.LoadOrDefault();
         settings.CultureName = culture.Name;
@@ -52,6 +58,7 @@ public sealed class LocalizationService : ILocalizationService
             }
         }
 
+        _logger.LogWarning("Unsupported culture {Culture}, falling back to en-US", cultureName);
         return CultureInfo.GetCultureInfo("en-US");
     }
 
