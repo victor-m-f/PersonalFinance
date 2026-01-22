@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Windows.Controls;
+using PersonalFinance.Ui.Settings;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 
@@ -8,6 +9,8 @@ namespace PersonalFinance.Ui.Views.Pages.Settings;
 public partial class SettingsPage : Page
 {
     private bool _isInitializing;
+    private readonly AppSettingsStore _settingsStore = new();
+    private AppSettings _settings = new();
 
     public SettingsPage()
     {
@@ -18,8 +21,14 @@ public partial class SettingsPage : Page
     private void OnLoaded(object sender, System.Windows.RoutedEventArgs e)
     {
         _isInitializing = true;
-        var currentTheme = ApplicationThemeManager.GetAppTheme();
-        var currentTag = currentTheme == ApplicationTheme.Dark ? "Dark" : "Light";
+        _settings = _settingsStore.LoadOrDefault();
+
+        var currentTag = _settings.Theme switch
+        {
+            AppThemePreference.Dark => "Dark",
+            AppThemePreference.Light => "Light",
+            _ => "System"
+        };
 
         if (ThemeComboBox.Items.OfType<ComboBoxItem>().FirstOrDefault(item => (string?)item.Tag == currentTag) is
             ComboBoxItem selectedItem)
@@ -45,11 +54,18 @@ public partial class SettingsPage : Page
         switch (selectedItem.Tag as string)
         {
             case "Dark":
-                ApplicationThemeManager.Apply(ApplicationTheme.Dark, WindowBackdropType.None);
+                _settings.Theme = AppThemePreference.Dark;
                 break;
             case "Light":
-                ApplicationThemeManager.Apply(ApplicationTheme.Light, WindowBackdropType.None);
+                _settings.Theme = AppThemePreference.Light;
+                break;
+            case "System":
+                _settings.Theme = AppThemePreference.System;
                 break;
         }
+
+        ThemeApplier.Apply(_settings);
+
+        _settingsStore.Save(_settings);
     }
 }

@@ -1,3 +1,4 @@
+using PersonalFinance.Ui.Settings;
 using PersonalFinance.Ui.Views.Pages.Expenses;
 using System.Windows;
 using Wpf.Ui.Controls;
@@ -15,6 +16,8 @@ public partial class ShellWindow : FluentWindow
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
         Loaded -= OnLoaded;
+        var settings = new AppSettingsStore().LoadOrDefault();
+        ThemeApplier.Apply(settings);
         var pageType = typeof(ExpensesPage);
         NavigationView.NavigateWithHierarchy(pageType);
     }
