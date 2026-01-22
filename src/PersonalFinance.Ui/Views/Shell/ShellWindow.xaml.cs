@@ -1,6 +1,5 @@
 using PersonalFinance.Ui.Views.Pages.Expenses;
 using System.Windows;
-using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 
 namespace PersonalFinance.Ui.Views.Shell;
@@ -11,7 +10,6 @@ public partial class ShellWindow : FluentWindow
     {
         InitializeComponent();
         Loaded += OnLoaded;
-        ApplicationThemeManager.Apply(this);
     }
 
     private void OnLoaded(object sender, RoutedEventArgs e)
