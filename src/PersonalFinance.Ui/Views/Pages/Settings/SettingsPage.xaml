@@ -1,0 +1,19 @@
+<Page x:Class="PersonalFinance.Ui.Views.Pages.Settings.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      Title="Settings">
+    <Grid>
+        <ui:Card Margin="24">
+            <StackPanel>
+                <TextBlock Text="Settings" FontSize="28" FontWeight="SemiBold" />
+                <ui:Button Margin="0,16,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <ui:SymbolIcon Symbol="Settings24" Margin="0,0,8,0" />
+                        <TextBlock Text="Preferences" />
+                    </StackPanel>
+                </ui:Button>
+            </StackPanel>
+        </ui:Card>
+    </Grid>
+</Page>
