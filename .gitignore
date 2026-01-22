@@ -1,0 +1,42 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.log
+*.tmp
+*.temp
+
+# Visual Studio
+.vs/
+*.swp
+*.swo
+
+# NuGet
+packages/
+*.nupkg
+.nuget/
+
+# WPF
+*.pfx
+*.snk
+
+# JetBrains Rider
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build outputs
+*.exe
+*.dll
+*.pdb
+
+# Test results
+TestResults/
+*.trx
+
+# Coverage
+*.coverage
