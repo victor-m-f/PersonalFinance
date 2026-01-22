@@ -1,8 +1,0 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
-    <Thickness x:Key="AppPadding">16</Thickness>
-    <sys:Double x:Key="TitleBarHeight">48</sys:Double>
-    <CornerRadius x:Key="AppCornerRadius">8</CornerRadius>
-    <sys:Double x:Key="IconButtonSize">40</sys:Double>
-</ResourceDictionary>
