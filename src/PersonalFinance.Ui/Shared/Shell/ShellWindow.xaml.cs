@@ -1,9 +1,9 @@
+using PersonalFinance.Ui.Features.Expenses.Views;
 using PersonalFinance.Ui.Settings;
-using PersonalFinance.Ui.Views.Pages.Expenses;
 using System.Windows;
 using Wpf.Ui.Controls;
 
-namespace PersonalFinance.Ui.Views.Shell;
+namespace PersonalFinance.Ui.Shared.Shell;
 
 public partial class ShellWindow : FluentWindow
 {

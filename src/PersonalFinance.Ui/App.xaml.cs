@@ -1,8 +1,6 @@
-﻿using PersonalFinance.Ui.Views.Shell;
-using PersonalFinance.Ui.Settings;
+﻿using PersonalFinance.Ui.Settings;
+using PersonalFinance.Ui.Shared.Shell;
 using System.Windows;
-using Wpf.Ui.Appearance;
-using Wpf.Ui.Controls;
 
 namespace PersonalFinance.Ui;
 

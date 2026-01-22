@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace PersonalFinance.Ui.Views.Shell.Components;
+namespace PersonalFinance.Ui.Shared.Shell.Components;
 
 public partial class AppTitleBar : UserControl
 {
