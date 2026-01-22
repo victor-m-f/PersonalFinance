@@ -6,6 +6,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.2" />
     <PackageReference Include="WPF-UI" Version="4.2.0" />
@@ -16,6 +17,11 @@
     <Page Remove="Resources\Styles\Buttons.xaml" />
     <Page Remove="Resources\Styles\Layout.xaml" />
     <Page Remove="Resources\Styles\Typography.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Features\Common\Commands\RelayCommand.cs" />
+    <Compile Remove="Features\Common\ViewModels\ObservableObject.cs" />
   </ItemGroup>
 
   <PropertyGroup>

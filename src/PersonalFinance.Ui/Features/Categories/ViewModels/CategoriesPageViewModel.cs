@@ -1,6 +1,6 @@
 using System.Windows.Input;
-using PersonalFinance.Ui.Features.Common.Commands;
-using PersonalFinance.Ui.Features.Common.ViewModels;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace PersonalFinance.Ui.Features.Categories.ViewModels;
 

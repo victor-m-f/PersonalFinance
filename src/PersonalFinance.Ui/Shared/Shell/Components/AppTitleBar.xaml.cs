@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace PersonalFinance.Ui.Shared.Shell.Components;
 
@@ -19,11 +20,11 @@ public partial class AppTitleBar : UserControl
         new PropertyMetadata(false)
     );
 
-    public static readonly RoutedEvent BackRequestedEvent = EventManager.RegisterRoutedEvent(
-        nameof(BackRequested),
-        RoutingStrategy.Bubble,
-        typeof(RoutedEventHandler),
-        typeof(AppTitleBar)
+    public static readonly DependencyProperty BackCommandProperty = DependencyProperty.Register(
+        nameof(BackCommand),
+        typeof(ICommand),
+        typeof(AppTitleBar),
+        new PropertyMetadata(null)
     );
 
     public AppTitleBar()
@@ -43,14 +44,9 @@ public partial class AppTitleBar : UserControl
         set => SetValue(IsBackEnabledProperty, value);
     }
 
-    public event RoutedEventHandler BackRequested
+    public ICommand? BackCommand
     {
-        add => AddHandler(BackRequestedEvent, value);
-        remove => RemoveHandler(BackRequestedEvent, value);
-    }
-
-    private void OnBackClick(object sender, RoutedEventArgs e)
-    {
-        RaiseEvent(new RoutedEventArgs(BackRequestedEvent));
+        get => (ICommand?)GetValue(BackCommandProperty);
+        set => SetValue(BackCommandProperty, value);
     }
 }

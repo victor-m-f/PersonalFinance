@@ -1,7 +1,6 @@
 using System.Windows.Input;
-
-using PersonalFinance.Ui.Features.Common.Commands;
-using PersonalFinance.Ui.Features.Common.ViewModels;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using PersonalFinance.Ui.Settings;
 
 namespace PersonalFinance.Ui.Features.Settings.ViewModels;
@@ -9,8 +8,8 @@ namespace PersonalFinance.Ui.Features.Settings.ViewModels;
 public sealed class SettingsPageViewModel : ObservableObject
 {
     private readonly AppSettingsStore _settingsStore = new();
-    private AppSettings _settings = new();
-    private bool _isInitializing;
+    private readonly AppSettings _settings = new();
+    private readonly bool _isInitializing;
     private string _selectedTheme = "System";
 
     public SettingsPageViewModel()

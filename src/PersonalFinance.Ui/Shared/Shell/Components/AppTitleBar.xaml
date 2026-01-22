@@ -12,10 +12,11 @@
                 <ui:Button Grid.Column="0"
                            Width="40"
                            Height="40"
+                           Margin="0, 0, 6, 0"
                            BorderThickness="0"
                            CornerRadius="8"
-                           Click="OnBackClick"
                            Appearance="Transparent"
+                           Command="{Binding BackCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                            IsEnabled="{Binding IsBackEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}">
                     <ui:Button.Icon>
                         <ui:SymbolIcon Symbol="ArrowLeft24" FontSize="16" />
