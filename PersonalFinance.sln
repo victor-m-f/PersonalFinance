@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalFinance.Ui", "src\P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalFinance.Domain", "src\PersonalFinance.Domain\PersonalFinance.Domain.csproj", "{F1383BC3-1BCF-4D8C-AD7D-D20BD9AC539D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalFinance.Shared", "src\PersonalFinance.Utils\PersonalFinance.Shared.csproj", "{C1A7C0A0-DFB2-4B13-9EBB-64BA6A198E7E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalFinance.Shared", "src\PersonalFinance.Shared\PersonalFinance.Shared.csproj", "{C1A7C0A0-DFB2-4B13-9EBB-64BA6A198E7E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalFinance.Application", "src\PersonalFinance.Application\PersonalFinance.Application.csproj", "{E7CF7CD7-DEEF-46C4-9C4B-9B60901FC361}"
 EndProject
