@@ -3,71 +3,78 @@ using PersonalFinance.Shared.Results;
 
 namespace PersonalFinance.Domain.Entities;
 
-public sealed class Category
+public sealed class Category : EntityBase
 {
-    public Guid Id { get; private set; }
-    public string Name { get; private set; }
-    public string ColorHex { get; private set; }
+    public string Name { get; private set; } = default!;
+    public CategoryColor Color { get; private set; } = default!;
     public Guid? ParentId { get; private set; }
     public DateTimeOffset CreatedAt { get; private set; }
-    public DateTimeOffset UpdatedAt { get; private set; }
+    public DateTimeOffset? UpdatedAt { get; private set; }
 
-    private Category(Guid id, string name, string colorHex, Guid? parentId, DateTimeOffset createdAt, DateTimeOffset updatedAt)
+    private Category(
+        string name,
+        CategoryColor color,
+        Guid? parentId,
+        DateTimeOffset createdAt,
+        DateTimeOffset? updatedAt)
     {
-        Id = id;
         Name = name;
-        ColorHex = colorHex;
+        Color = color;
         ParentId = parentId;
         CreatedAt = createdAt;
         UpdatedAt = updatedAt;
     }
 
-    public static Result<Category> Create(Guid id, string name, string colorHex, Guid? parentId)
+    private Category() { }
+
+    public static Result<Category> Create(string name, CategoryColor color, Guid? parentId)
     {
-        var nameResult = ValidateName(name);
-        if (!nameResult.IsSuccess)
+        if (string.IsNullOrWhiteSpace(name))
         {
-            return Result<Category>.Failure(nameResult.ErrorCode ?? Errors.ValidationError, nameResult.ErrorMessage ?? "Invalid name.");
+            return Result<Category>.Failure(Errors.ValidationError, "Name is required.");
         }
 
-        var colorResult = CategoryColor.Create(colorHex);
-        if (!colorResult.IsSuccess)
+        if (color is null)
         {
-            return Result<Category>.Failure(colorResult.ErrorCode ?? Errors.ValidationError, colorResult.ErrorMessage ?? "Invalid color.");
+            return Result<Category>.Failure(Errors.ValidationError, "Color is required.");
         }
-
-        if (parentId.HasValue && parentId.Value == id)
-        {
-            return Result<Category>.Failure(Errors.ValidationError, "Category cannot be its own parent.");
-        }
-
+        
         var now = DateTimeOffset.UtcNow;
-        var category = new Category(id, nameResult.Value!, colorResult.Value!.Value, parentId, now, now);
+        var category = new Category(name, color, parentId, now, null);
+
         return Result<Category>.Success(category);
     }
 
     public Result Rename(string name)
     {
-        var nameResult = ValidateName(name);
-        if (!nameResult.IsSuccess)
+        if (string.IsNullOrWhiteSpace(name))
         {
-            return Result.Failure(nameResult.ErrorCode ?? Errors.ValidationError, nameResult.ErrorMessage ?? "Invalid name.");
+            return Result.Failure(Errors.ValidationError, "Name is required.");
         }
 
-        Name = nameResult.Value!;
+        if (string.Equals(Name, name, StringComparison.Ordinal))
+        {
+            return Result.Success();
+        }
+
+        Name = name;
         UpdatedAt = DateTimeOffset.UtcNow;
         return Result.Success();
     }
 
-    public Result SetColor(string colorHex)
+    public Result SetColor(CategoryColor color)
     {
-        var colorResult = CategoryColor.Create(colorHex);
-        if (!colorResult.IsSuccess)
+        if (color is null)
         {
-            return Result.Failure(colorResult.ErrorCode ?? Errors.ValidationError, colorResult.ErrorMessage ?? "Invalid color.");
+            return Result.Failure(Errors.ValidationError, "Color is required.");
         }
 
-        ColorHex = colorResult.Value!.Value;
+        if (Equals(Color, color))
+        {
+            return Result.Success();
+        }
+
+        Color = color;
         UpdatedAt = DateTimeOffset.UtcNow;
         return Result.Success();
     }
@@ -79,25 +86,13 @@ public sealed class Category
             return Result.Failure(Errors.ValidationError, "Category cannot be its own parent.");
         }
 
+        if (ParentId == parentId)
+        {
+            return Result.Success();
+        }
+
         ParentId = parentId;
         UpdatedAt = DateTimeOffset.UtcNow;
         return Result.Success();
-    }
-
-    private static Result<string> ValidateName(string name)
-    {
-        if (string.IsNullOrWhiteSpace(name))
-        {
-            return Result<string>.Failure(Errors.ValidationError, "Name is required.");
-        }
-
-        var trimmed = name.Trim();
-
-        if (trimmed.Length < 2 || trimmed.Length > 60)
-        {
-            return Result<string>.Failure(Errors.ValidationError, "Name must be between 2 and 60 characters.");
-        }
-
-        return Result<string>.Success(trimmed);
     }
 }

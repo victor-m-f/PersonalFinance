@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using PersonalFinance.Ui.Services.Startup;
 using PersonalFinance.Ui.Settings;
 using Serilog;
-using System.Threading.Tasks;
 using System.Windows;
 using Wpf.Ui;
 using Wpf.Ui.Controls;

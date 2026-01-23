@@ -4,12 +4,14 @@ namespace PersonalFinance.Domain.ValueObjects;
 
 public sealed record class CategoryColor
 {
-    public string Value { get; }
+    public string Value { get; } = default!;
 
     private CategoryColor(string value)
     {
         Value = value;
     }
+
+    private CategoryColor() { }
 
     public static Result<CategoryColor> Create(string colorHex)
     {
@@ -25,7 +27,8 @@ public sealed record class CategoryColor
             return Result<CategoryColor>.Failure(Errors.ValidationError, "Color must be in format #AARRGGBB.");
         }
 
-        return Result<CategoryColor>.Success(new CategoryColor(trimmed));
+        var normalized = trimmed.ToUpperInvariant();
+        return Result<CategoryColor>.Success(new CategoryColor(normalized));
     }
 
     private static bool IsValid(string value)

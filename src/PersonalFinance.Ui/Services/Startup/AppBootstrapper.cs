@@ -1,7 +1,9 @@
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using PersonalFinance.Application.Requests.Categories.Validators;
 using PersonalFinance.Ui.Features.Categories.ViewModels;
 using PersonalFinance.Ui.Features.Categories.Views;
 using PersonalFinance.Ui.Features.Expenses.ViewModels;
@@ -28,6 +30,7 @@ public static class AppBootstrapper
         return Host.CreateDefaultBuilder()
             .ConfigureServices(services =>
             {
+                services.AddValidatorsFromAssemblyContaining<CreateCategoryRequestValidator>();
                 services.AddSingleton<AppSettingsStore>();
                 services.AddSingleton<ILocalizationService, LocalizationService>();
                 services.AddSingleton<ISnackbarService, SnackbarService>();
