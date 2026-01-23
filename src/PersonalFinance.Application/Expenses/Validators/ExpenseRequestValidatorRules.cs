@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 using FluentValidation;
 using PersonalFinance.Shared.Constraints;
 
-namespace PersonalFinance.Application.Requests.Expenses.Validators;
+namespace PersonalFinance.Application.Expenses.Validators;
 
 internal static class ExpenseRequestValidatorRules
 {

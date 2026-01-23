@@ -1,6 +1,7 @@
 using FluentValidation;
+using PersonalFinance.Application.Expenses.Requests;
 
-namespace PersonalFinance.Application.Requests.Expenses.Validators;
+namespace PersonalFinance.Application.Expenses.Validators;
 
 public sealed class CreateExpenseRequestValidator : AbstractValidator<CreateExpenseRequest>
 {

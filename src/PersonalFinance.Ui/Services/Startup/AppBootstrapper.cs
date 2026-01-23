@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using PersonalFinance.Application.Requests.Categories.Validators;
+using PersonalFinance.Application.Categories.Validators;
 using PersonalFinance.Ui.Features.Categories.ViewModels;
 using PersonalFinance.Ui.Features.Categories.Views;
 using PersonalFinance.Ui.Features.Expenses.ViewModels;

@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 using FluentValidation;
 using PersonalFinance.Shared.Constraints;
 
-namespace PersonalFinance.Application.Requests.Categories.Validators;
+namespace PersonalFinance.Application.Categories.Validators;
 
 internal static class CategoryRequestValidatorRules
 {

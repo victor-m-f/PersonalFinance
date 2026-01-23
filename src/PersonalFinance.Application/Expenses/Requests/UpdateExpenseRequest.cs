@@ -1,4 +1,4 @@
-namespace PersonalFinance.Application.Requests.Expenses;
+namespace PersonalFinance.Application.Expenses.Requests;
 
 public sealed record class UpdateExpenseRequest
 {

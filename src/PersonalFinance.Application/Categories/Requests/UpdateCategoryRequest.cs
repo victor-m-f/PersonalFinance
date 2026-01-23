@@ -1,4 +1,4 @@
-namespace PersonalFinance.Application.Requests.Categories;
+namespace PersonalFinance.Application.Categories.Requests;
 
 public sealed record class UpdateCategoryRequest
 {

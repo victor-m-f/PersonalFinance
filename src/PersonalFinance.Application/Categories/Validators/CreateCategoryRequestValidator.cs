@@ -1,6 +1,7 @@
 using FluentValidation;
+using PersonalFinance.Application.Categories.Requests;
 
-namespace PersonalFinance.Application.Requests.Categories.Validators;
+namespace PersonalFinance.Application.Categories.Validators;
 
 public sealed class CreateCategoryRequestValidator : AbstractValidator<CreateCategoryRequest>
 {
