@@ -1,7 +1,10 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace PersonalFinance.Shared.Results;
 
 public sealed record class Result<T>
 {
+    [MemberNotNullWhen(true, nameof(Value))]
     public bool IsSuccess { get; }
     public string? ErrorCode { get; }
     public string? ErrorMessage { get; }

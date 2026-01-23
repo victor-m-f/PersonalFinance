@@ -15,14 +15,12 @@ public sealed class Category : EntityBase
         string name,
         CategoryColor color,
         Guid? parentId,
-        DateTimeOffset createdAt,
-        DateTimeOffset? updatedAt)
+        DateTimeOffset createdAt)
     {
-        Name = name;
+        Name = name.Trim();
         Color = color;
         ParentId = parentId;
         CreatedAt = createdAt;
-        UpdatedAt = updatedAt;
     }
 
     private Category() { }
@@ -40,7 +38,7 @@ public sealed class Category : EntityBase
         }
         
         var now = DateTimeOffset.UtcNow;
-        var category = new Category(name, color, parentId, now, null);
+        var category = new Category(name, color, parentId, now);
 
         return Result<Category>.Success(category);
     }
