@@ -15,6 +15,7 @@ public sealed class CategoryConfiguration : IEntityTypeConfiguration<Category>
         builder.HasKey(x => x.Id);
 
         builder.HasIndex(x => x.ParentId);
+        builder.HasIndex(x => x.Name);
 
         builder.Property(x => x.Name)
             .HasMaxLength(EntityConstraints.Category.NameMaxLength)

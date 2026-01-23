@@ -3,7 +3,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using PersonalFinance.Application.Categories.Abstractions;
+using PersonalFinance.Application.Categories.UseCases;
 using PersonalFinance.Application.Categories.Validators;
+using PersonalFinance.Infrastructure.Data.Repositories;
 using PersonalFinance.Ui.Features.Categories.ViewModels;
 using PersonalFinance.Ui.Features.Categories.Views;
 using PersonalFinance.Ui.Features.Expenses.ViewModels;
@@ -45,6 +48,8 @@ public static class AppBootstrapper
                 services.AddTransient<ExpensesPage>();
                 services.AddTransient<CategoriesPageViewModel>();
                 services.AddTransient<CategoriesPage>();
+                services.AddScoped<ICategoryReadRepository, CategoryReadRepository>();
+                services.AddScoped<FilterCategoriesUseCase>();
             })
             .UseSerilog((context, services, loggerConfiguration) =>
             {
