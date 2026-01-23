@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalFinance.Ui", "src\P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalFinance.Domain", "src\PersonalFinance.Domain\PersonalFinance.Domain.csproj", "{F1383BC3-1BCF-4D8C-AD7D-D20BD9AC539D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalFinance.Shared", "src\PersonalFinance.Utils\PersonalFinance.Shared.csproj", "{C1A7C0A0-DFB2-4B13-9EBB-64BA6A198E7E}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalFinance.Application", "src\PersonalFinance.Application\PersonalFinance.Application.csproj", "{E7CF7CD7-DEEF-46C4-9C4B-9B60901FC361}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalFinance.Infrastructure", "src\PersonalFinance.Infrastructure\PersonalFinance.Infrastructure.csproj", "{A46214C9-DCFB-4103-AE95-CE804B49A71F}"
@@ -47,6 +49,18 @@ Global
 		{F1383BC3-1BCF-4D8C-AD7D-D20BD9AC539D}.Release|x64.Build.0 = Release|Any CPU
 		{F1383BC3-1BCF-4D8C-AD7D-D20BD9AC539D}.Release|x86.ActiveCfg = Release|Any CPU
 		{F1383BC3-1BCF-4D8C-AD7D-D20BD9AC539D}.Release|x86.Build.0 = Release|Any CPU
+		{C1A7C0A0-DFB2-4B13-9EBB-64BA6A198E7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1A7C0A0-DFB2-4B13-9EBB-64BA6A198E7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1A7C0A0-DFB2-4B13-9EBB-64BA6A198E7E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C1A7C0A0-DFB2-4B13-9EBB-64BA6A198E7E}.Debug|x64.Build.0 = Debug|Any CPU
+		{C1A7C0A0-DFB2-4B13-9EBB-64BA6A198E7E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C1A7C0A0-DFB2-4B13-9EBB-64BA6A198E7E}.Debug|x86.Build.0 = Debug|Any CPU
+		{C1A7C0A0-DFB2-4B13-9EBB-64BA6A198E7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1A7C0A0-DFB2-4B13-9EBB-64BA6A198E7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1A7C0A0-DFB2-4B13-9EBB-64BA6A198E7E}.Release|x64.ActiveCfg = Release|Any CPU
+		{C1A7C0A0-DFB2-4B13-9EBB-64BA6A198E7E}.Release|x64.Build.0 = Release|Any CPU
+		{C1A7C0A0-DFB2-4B13-9EBB-64BA6A198E7E}.Release|x86.ActiveCfg = Release|Any CPU
+		{C1A7C0A0-DFB2-4B13-9EBB-64BA6A198E7E}.Release|x86.Build.0 = Release|Any CPU
 		{E7CF7CD7-DEEF-46C4-9C4B-9B60901FC361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E7CF7CD7-DEEF-46C4-9C4B-9B60901FC361}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7CF7CD7-DEEF-46C4-9C4B-9B60901FC361}.Debug|x64.ActiveCfg = Debug|Any CPU

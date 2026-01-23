@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PersonalFinance.Domain\PersonalFinance.Domain.csproj" />
+    <ProjectReference Include="..\PersonalFinance.Utils\PersonalFinance.Shared.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
