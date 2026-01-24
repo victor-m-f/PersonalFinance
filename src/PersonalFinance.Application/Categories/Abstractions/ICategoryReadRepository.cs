@@ -7,6 +7,7 @@ public interface ICategoryReadRepository
 {
     public Task<PagedResult<CategoryListItemResponse>> FilterAsync(
         Guid? parentId,
+        bool includeAll,
         string? name,
         string? sortBy,
         bool sortDescending,

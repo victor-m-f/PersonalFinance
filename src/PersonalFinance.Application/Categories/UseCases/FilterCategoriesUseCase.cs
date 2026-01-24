@@ -36,6 +36,7 @@ public sealed class FilterCategoriesUseCase
 
         var result = await _categoryReadRepository.FilterAsync(
             request.ParentId,
+            request.IncludeAll,
             name,
             sortBy,
             request.SortDescending,

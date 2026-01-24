@@ -59,7 +59,7 @@ public sealed class CreateCategoryUseCase
             {
                 return Result<Category>.Failure(
                     Errors.ValidationError,
-                    validation.Errors[0].ErrorMessage);
+                    validation.Errors.First().ErrorMessage);
             }
 
             var colorResult = CategoryColor.Create(request.ColorHex);

@@ -17,6 +17,7 @@ public sealed class CategoryReadRepository : ICategoryReadRepository
 
     public async Task<PagedResult<CategoryListItemResponse>> FilterAsync(
         Guid? parentId,
+        bool includeAll,
         string? name,
         string? sortBy,
         bool sortDescending,
@@ -25,13 +26,16 @@ public sealed class CategoryReadRepository : ICategoryReadRepository
     {
         var query = _dbContext.Categories.AsNoTracking();
 
-        if (parentId.HasValue)
+        if (!includeAll)
         {
-            query = query.Where(x => x.ParentId == parentId);
-        }
-        else
-        {
-            query = query.Where(x => x.ParentId == null);
+            if (parentId.HasValue)
+            {
+                query = query.Where(x => x.ParentId == parentId);
+            }
+            else
+            {
+                query = query.Where(x => x.ParentId == null);
+            }
         }
 
         if (name is not null)

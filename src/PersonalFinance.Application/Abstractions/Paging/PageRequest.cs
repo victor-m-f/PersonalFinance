@@ -3,7 +3,7 @@ namespace PersonalFinance.Application.Abstractions.Paging;
 public sealed record class PageRequest
 {
     public const int DefaultPageNumber = 1;
-    public const int DefaultPageSize = 50;
+    public const int DefaultPageSize = 15;
     public const int MaxPageSize = 200;
     public const int MinPageSize = 1;
 
