@@ -1,6 +1,5 @@
 using FluentValidation;
 using Microsoft.Extensions.Logging;
-using PersonalFinance.Application.Abstractions;
 using PersonalFinance.Application.Expenses.Abstractions;
 using PersonalFinance.Application.Expenses.Requests;
 using PersonalFinance.Shared.Results;
@@ -10,24 +9,60 @@ namespace PersonalFinance.Application.Expenses.UseCases;
 public sealed class DeleteExpenseUseCase
 {
     private readonly IExpenseRepository _expenseRepository;
-    private readonly IUnitOfWork _unitOfWork;
     private readonly IValidator<DeleteExpenseRequest> _validator;
     private readonly ILogger<DeleteExpenseUseCase> _logger;
 
     public DeleteExpenseUseCase(
         IExpenseRepository expenseRepository,
-        IUnitOfWork unitOfWork,
         IValidator<DeleteExpenseRequest> validator,
         ILogger<DeleteExpenseUseCase> logger)
     {
         _expenseRepository = expenseRepository;
-        _unitOfWork = unitOfWork;
         _validator = validator;
         _logger = logger;
     }
 
-    public Task<Result> ExecuteAsync(DeleteExpenseRequest request, CancellationToken ct)
+    public async Task<Result> ExecuteAsync(DeleteExpenseRequest request, CancellationToken ct)
     {
-        return Task.FromResult(Result.Failure(Errors.ValidationError, "Not implemented."));
+        var validationResult = await ValidateRequestAsync();
+        if (!validationResult.IsSuccess)
+        {
+            return validationResult;
+        }
+
+        if (!await _expenseRepository.ExistsAsync(request.Id, ct))
+        {
+            _logger.LogWarning(
+                "Expense not found when attempting deletion. Id {ExpenseId}",
+                request.Id);
+
+            return Result.Failure(Errors.NotFound, "Expense not found.");
+        }
+
+        await _expenseRepository.DeleteByIdAsync(request.Id, ct);
+
+        _logger.LogInformation(
+            "Expense deleted successfully with Id {ExpenseId}",
+            request.Id);
+
+        return Result.Success();
+
+        async Task<Result> ValidateRequestAsync()
+        {
+            var validation = await _validator.ValidateAsync(request, ct);
+            if (validation.IsValid)
+            {
+                return Result.Success();
+            }
+
+            var message = validation.Errors.First().ErrorMessage;
+
+            _logger.LogWarning(
+                "DeleteExpense validation failed for Id {ExpenseId}. Error: {ErrorMessage}",
+                request.Id,
+                message);
+
+            return Result.Failure(Errors.ValidationError, message);
+        }
     }
 }

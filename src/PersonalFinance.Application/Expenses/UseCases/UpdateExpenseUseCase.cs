@@ -26,8 +26,48 @@ public sealed class UpdateExpenseUseCase
         _logger = logger;
     }
 
-    public Task<Result> ExecuteAsync(UpdateExpenseRequest request, CancellationToken ct)
+    public async Task<Result> ExecuteAsync(UpdateExpenseRequest request, CancellationToken ct)
     {
-        return Task.FromResult(Result.Failure(Errors.ValidationError, "Not implemented."));
+        var validationResult = await ValidateRequestAsync();
+        if (!validationResult.IsSuccess)
+        {
+            return validationResult;
+        }
+
+        var expense = await _expenseRepository.GetByIdAsync(request.Id, ct);
+        if (expense is null)
+        {
+            _logger.LogWarning("Expense not found when attempting update. Id {ExpenseId}", request.Id);
+            return Result.Failure(Errors.NotFound, "Expense not found.");
+        }
+
+        var updateResult = expense.Update(request.Date, request.Amount, request.Description);
+        if (!updateResult.IsSuccess)
+        {
+            return Result.Failure(updateResult.ErrorCode!, updateResult.ErrorMessage!);
+        }
+
+        await _unitOfWork.SaveChangesAsync(ct);
+
+        _logger.LogInformation("Expense updated successfully with Id {ExpenseId}", expense.Id);
+        return Result.Success();
+
+        async Task<Result> ValidateRequestAsync()
+        {
+            var validation = await _validator.ValidateAsync(request, ct);
+            if (validation.IsValid)
+            {
+                return Result.Success();
+            }
+
+            var message = validation.Errors.First().ErrorMessage;
+
+            _logger.LogWarning(
+                "UpdateExpense validation failed for Id {ExpenseId}. Error: {ErrorMessage}",
+                request.Id,
+                message);
+
+            return Result.Failure(Errors.ValidationError, message);
+        }
     }
 }
