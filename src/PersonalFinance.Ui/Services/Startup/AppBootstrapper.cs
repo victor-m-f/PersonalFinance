@@ -1,14 +1,19 @@
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using PersonalFinance.Application.Abstractions;
 using PersonalFinance.Application.Categories.Abstractions;
 using PersonalFinance.Application.Categories.UseCases;
 using PersonalFinance.Application.Categories.Validators;
+using PersonalFinance.Infrastructure.Data;
 using PersonalFinance.Infrastructure.Data.Repositories;
+using PersonalFinance.Ui.Features.Categories.Services;
 using PersonalFinance.Ui.Features.Categories.ViewModels;
 using PersonalFinance.Ui.Features.Categories.Views;
+using PersonalFinance.Ui.Features.Categories.Views.Dialogs;
 using PersonalFinance.Ui.Features.Expenses.ViewModels;
 using PersonalFinance.Ui.Features.Expenses.Views;
 using PersonalFinance.Ui.Features.Settings.Components.ViewModels;
@@ -37,6 +42,7 @@ public static class AppBootstrapper
                 services.AddSingleton<AppSettingsStore>();
                 services.AddSingleton<ILocalizationService, LocalizationService>();
                 services.AddSingleton<ISnackbarService, SnackbarService>();
+                services.AddSingleton<IContentDialogService, ContentDialogService>();
                 services.AddSingleton<Wpf.Ui.Abstractions.INavigationViewPageProvider, NavigationViewPageProvider>();
                 services.AddSingleton<ShellViewModel>();
                 services.AddSingleton<ShellWindow>();
@@ -48,8 +54,22 @@ public static class AppBootstrapper
                 services.AddTransient<ExpensesPage>();
                 services.AddTransient<CategoriesPageViewModel>();
                 services.AddTransient<CategoriesPage>();
+                services.AddTransient<CategoryEditorDialogViewModel>();
+                services.AddTransient<CategoryEditorDialog>();
+                services.AddSingleton<IUiDialogService, UiDialogService>();
+                services.AddDbContext<PersonalFinanceDbContext>(options =>
+                {
+                    Directory.CreateDirectory(FileSystemPaths.LocalAppDataFolder);
+                    var dbPath = Path.Combine(FileSystemPaths.LocalAppDataFolder, "personalfinance.db");
+                    options.UseSqlite($"Data Source={dbPath}");
+                });
                 services.AddScoped<ICategoryReadRepository, CategoryReadRepository>();
+                services.AddScoped<ICategoryRepository, CategoryRepository>();
+                services.AddScoped<IUnitOfWork, UnitOfWork>();
                 services.AddScoped<FilterCategoriesUseCase>();
+                services.AddScoped<CreateCategoryUseCase>();
+                services.AddScoped<UpdateCategoryUseCase>();
+                services.AddScoped<DeleteCategoryUseCase>();
             })
             .UseSerilog((context, services, loggerConfiguration) =>
             {

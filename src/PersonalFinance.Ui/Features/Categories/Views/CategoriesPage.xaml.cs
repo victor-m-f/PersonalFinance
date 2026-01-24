@@ -10,5 +10,11 @@ public partial class CategoriesPage : Page
     {
         InitializeComponent();
         DataContext = App.Services.GetRequiredService<CategoriesPageViewModel>();
+        Loaded += OnLoaded;
+    }
+
+    private void OnLoaded(object sender, System.Windows.RoutedEventArgs e)
+    {
+        System.Windows.Input.Keyboard.Focus(SearchBox);
     }
 }

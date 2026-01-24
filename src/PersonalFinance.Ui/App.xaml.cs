@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using PersonalFinance.Infrastructure.Data;
 using PersonalFinance.Ui.Services.Startup;
 using PersonalFinance.Ui.Settings;
 using Serilog;
@@ -27,6 +29,18 @@ public partial class App : System.Windows.Application
 			RegisterGlobalExceptionHandlers();
 			var logger = Services.GetRequiredService<ILogger<App>>();
 			logger.LogInformation("Application starting");
+
+			try
+			{
+				using var scope = Services.CreateScope();
+				var dbContext = scope.ServiceProvider.GetRequiredService<PersonalFinanceDbContext>();
+				dbContext.Database.Migrate();
+				logger.LogInformation("Database migration completed");
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex, "Database migration failed");
+			}
 
 			AppBootstrapper.InitializeLocalization(Services, logger);
 			var settings = AppBootstrapper.LoadSettings(Services, logger);

@@ -17,6 +17,8 @@ public partial class ShellWindow : FluentWindow
         NavigationView.SetPageProviderService(pageProvider);
         var snackbarService = App.Services.GetRequiredService<ISnackbarService>();
         snackbarService.SetSnackbarPresenter(SnackbarPresenter);
+        var contentDialogService = App.Services.GetRequiredService<IContentDialogService>();
+        contentDialogService.SetDialogHost(RootContentDialog);
         ShellNavigationService.Instance.SetNavigationView(NavigationView);
     }
 }

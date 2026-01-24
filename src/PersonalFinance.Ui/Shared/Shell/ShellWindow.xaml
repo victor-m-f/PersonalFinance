@@ -39,6 +39,10 @@
             <ui:NavigationView.ContentOverlay>
                 <Grid>
                     <ui:SnackbarPresenter x:Name="SnackbarPresenter" />
+                    <ui:ContentDialogHost x:Name="RootContentDialog"
+                                          HorizontalAlignment="Stretch"
+                                          VerticalAlignment="Stretch"
+                                          Panel.ZIndex="10" />
                 </Grid>
             </ui:NavigationView.ContentOverlay>
             <ui:NavigationView.Resources>

@@ -1,0 +1,28 @@
+<UserControl x:Class="PersonalFinance.Ui.Shared.Components.PagingFooterControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0"
+                   Text="{Binding ShowingText, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                   Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+            <ui:Button Style="{StaticResource PagingButtonStyle}"
+                       Command="{Binding PrevCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                       Content="Prev"
+                       Icon="{ui:SymbolIcon ChevronLeft24}" />
+            <TextBlock Text="{Binding PageText, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                       Margin="8,0"
+                       VerticalAlignment="Center"
+                       Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+            <ui:Button Style="{StaticResource PagingButtonStyle}"
+                       Command="{Binding NextCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                       Content="Next"
+                       Icon="{ui:SymbolIcon ChevronRight24}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

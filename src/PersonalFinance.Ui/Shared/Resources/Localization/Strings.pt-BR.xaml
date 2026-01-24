@@ -25,4 +25,23 @@
     <sys:String x:Key="Expenses.Add">Adicionar despesa</sys:String>
     <sys:String x:Key="Categories.Title">Categorias</sys:String>
     <sys:String x:Key="Categories.Add">Adicionar categoria</sys:String>
+    <sys:String x:Key="Categories.Subtitle">Gerencie suas categorias de despesa</sys:String>
+    <sys:String x:Key="Categories.SearchPlaceholder">Buscar por nome</sys:String>
+    <sys:String x:Key="Categories.ShowRootsOnly">Mostrar apenas categorias raiz</sys:String>
+    <sys:String x:Key="Categories.New">Nova categoria</sys:String>
+    <sys:String x:Key="Categories.Edit">Editar categoria</sys:String>
+    <sys:String x:Key="Categories.NameLabel">Nome</sys:String>
+    <sys:String x:Key="Categories.ColorLabel">Cor (#AARRGGBB)</sys:String>
+    <sys:String x:Key="Categories.ParentLabel">Categoria pai</sys:String>
+    <sys:String x:Key="Categories.ParentNone">Sem pai</sys:String>
+    <sys:String x:Key="Categories.Subcategory">Subcategoria</sys:String>
+    <sys:String x:Key="Categories.SubcategoryOf">Subcategoria de</sys:String>
+    <sys:String x:Key="Categories.Showing">Mostrando</sys:String>
+    <sys:String x:Key="Categories.Page">Página</sys:String>
+    <sys:String x:Key="Categories.Of">de</sys:String>
+    <sys:String x:Key="Categories.DeleteConfirmTitle">Excluir categoria</sys:String>
+    <sys:String x:Key="Categories.DeleteConfirmMessage">Tem certeza de que deseja excluir esta categoria?</sys:String>
+    <sys:String x:Key="Common.Cancel">Cancelar</sys:String>
+    <sys:String x:Key="Common.Save">Salvar</sys:String>
+    <sys:String x:Key="Common.Delete">Excluir</sys:String>
 </ResourceDictionary>

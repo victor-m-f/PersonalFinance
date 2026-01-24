@@ -1,0 +1,100 @@
+<ui:ContentDialog x:Class="PersonalFinance.Ui.Features.Categories.Views.Dialogs.CategoryEditorDialog"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                  xmlns:models="clr-namespace:PersonalFinance.Ui.Features.Categories.Models"
+                  xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                  PrimaryButtonText="{DynamicResource Common.Save}"
+                  CloseButtonText="{DynamicResource Common.Cancel}"
+                  DefaultButton="Primary"
+                  IsPrimaryButtonEnabled="{Binding IsValid}"
+                  DialogWidth="640"
+                  DialogMaxWidth="640">
+    <ui:ContentDialog.Style>
+        <Style TargetType="ui:ContentDialog" BasedOn="{StaticResource {x:Type ui:ContentDialog}}">
+            <Setter Property="Title" Value="{DynamicResource Categories.New}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsEditMode}" Value="True">
+                    <Setter Property="Title" Value="{DynamicResource Categories.Edit}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </ui:ContentDialog.Style>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Content="{DynamicResource Categories.NameLabel}" Target="{Binding ElementName=NameTextBox}" />
+        <ui:TextBox x:Name="NameTextBox"
+                    Grid.Row="1"
+                    Margin="0,4,0,0"
+                    MinWidth="420"
+                    ClearButtonEnabled="True"
+                    Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="LostFocus">
+                    <i:InvokeCommandAction Command="{Binding NameLostFocusCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ui:TextBox>
+        <TextBlock Grid.Row="2"
+                   Style="{StaticResource ValidationMessageTextStyle}"
+                   Text="{Binding ElementName=NameTextBox, Path=(Validation.Errors)[0].ErrorContent}"
+                   Visibility="{Binding ElementName=NameTextBox, Path=(Validation.HasError), Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+        <Label Grid.Row="3" Content="{DynamicResource Categories.ColorLabel}" Margin="0,12,0,0" Target="{Binding ElementName=ColorTextBox}" />
+        <Grid Grid.Row="4" Margin="0,6,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <ui:TextBox x:Name="ColorTextBox"
+                        Grid.Column="0"
+                        Margin="0,4,0,0"
+                        MinWidth="420"
+                        ClearButtonEnabled="True"
+                        Text="{Binding ColorHex, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="LostFocus">
+                        <i:InvokeCommandAction Command="{Binding ColorLostFocusCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ui:TextBox>
+            <Rectangle Grid.Column="1"
+                       Margin="12,0,0,0"
+                       VerticalAlignment="Center"
+                       Style="{StaticResource ColorPillStyle}"
+                       Fill="{Binding ColorHex, Converter={StaticResource ColorHexToBrushConverter}}" />
+        </Grid>
+        <TextBlock Grid.Row="5"
+                   Style="{StaticResource ValidationMessageTextStyle}"
+                   Text="{Binding ElementName=ColorTextBox, Path=(Validation.Errors)[0].ErrorContent}"
+                   Visibility="{Binding ElementName=ColorTextBox, Path=(Validation.HasError), Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+        <Label Grid.Row="6" Content="{DynamicResource Categories.ParentLabel}" Margin="0,12,0,0" Target="{Binding ElementName=ParentAutoSuggestBox}" />
+        <ui:AutoSuggestBox x:Name="ParentAutoSuggestBox"
+                           Grid.Row="7"
+                           MinWidth="420"
+                           ClearButtonEnabled="True"
+                           DisplayMemberPath="DisplayName"
+                           OriginalItemsSource="{Binding ParentOptions}"
+                           Text="{Binding ParentSearchText, UpdateSourceTrigger=PropertyChanged}">
+            <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction Command="{Binding ParentTextChangedCommand}" PassEventArgsToCommand="True" />
+                    </i:EventTrigger>
+                <i:EventTrigger EventName="SuggestionChosen">
+                    <i:InvokeCommandAction Command="{Binding ParentSuggestionChosenCommand}" PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ui:AutoSuggestBox>
+    </Grid>
+</ui:ContentDialog>
