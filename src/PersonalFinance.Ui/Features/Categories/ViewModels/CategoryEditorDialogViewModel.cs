@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PersonalFinance.Shared.Constraints;
 using PersonalFinance.Ui.Features.Categories.Models;
+using PersonalFinance.Ui.Shared.Search;
 using Wpf.Ui.Controls;
 
 namespace PersonalFinance.Ui.Features.Categories.ViewModels;
@@ -18,6 +19,7 @@ public sealed class CategoryEditorDialogViewModel : ObservableObject, IDataError
     private Guid? _parentId;
     private bool _isEditMode;
     private IReadOnlyList<CategoryLookupItemVm> _parentOptions = Array.Empty<CategoryLookupItemVm>();
+    private IReadOnlyList<CategoryLookupItemVm> _filteredParentOptions = Array.Empty<CategoryLookupItemVm>();
     private bool _isValid;
     private bool _suppressValidation;
     private bool _isNameTouched;
@@ -91,6 +93,12 @@ public sealed class CategoryEditorDialogViewModel : ObservableObject, IDataError
         private set => SetProperty(ref _parentOptions, value);
     }
 
+    public IReadOnlyList<CategoryLookupItemVm> FilteredParentOptions
+    {
+        get => _filteredParentOptions;
+        private set => SetProperty(ref _filteredParentOptions, value);
+    }
+
     public string ParentSearchText
     {
         get => _parentSearchText;
@@ -131,6 +139,7 @@ public sealed class CategoryEditorDialogViewModel : ObservableObject, IDataError
         ColorHex = string.IsNullOrWhiteSpace(options.ColorHex) ? "#FF3B82F6" : options.ColorHex;
         ParentId = options.ParentId;
         ParentOptions = options.ParentOptions;
+        FilteredParentOptions = options.ParentOptions;
         ParentSearchText = ResolveParentSearchText(options.ParentId, options.ParentOptions);
 
         _isNameTouched = false;
@@ -187,6 +196,7 @@ public sealed class CategoryEditorDialogViewModel : ObservableObject, IDataError
 
         ParentId = option.Id;
         ParentSearchText = option.DisplayName;
+        FilteredParentOptions = ParentOptions;
     }
 
     private void OnParentTextChanged(AutoSuggestBoxTextChangedEventArgs? args)
@@ -196,10 +206,32 @@ public sealed class CategoryEditorDialogViewModel : ObservableObject, IDataError
             return;
         }
 
+        if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+        {
+            args.Handled = true;
+            FilteredParentOptions = FilterOptions(ParentOptions, args.Text);
+        }
+
         if (string.IsNullOrWhiteSpace(args.Text))
         {
             ParentId = null;
+            FilteredParentOptions = ParentOptions;
         }
+    }
+
+    private static IReadOnlyList<CategoryLookupItemVm> FilterOptions(
+        IReadOnlyList<CategoryLookupItemVm> options,
+        string? searchText)
+    {
+        var normalized = TextSearchNormalizer.Normalize(searchText);
+        if (normalized is null)
+        {
+            return options;
+        }
+
+        return options
+            .Where(option => TextSearchNormalizer.Normalize(option.DisplayName)?.Contains(normalized, StringComparison.Ordinal) == true)
+            .ToList();
     }
 
     private static string ResolveParentSearchText(Guid? parentId, IReadOnlyList<CategoryLookupItemVm> options)

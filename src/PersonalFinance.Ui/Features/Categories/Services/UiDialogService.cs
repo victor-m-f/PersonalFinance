@@ -2,6 +2,9 @@ using Microsoft.Extensions.DependencyInjection;
 using PersonalFinance.Ui.Features.Categories.Models;
 using PersonalFinance.Ui.Features.Categories.ViewModels;
 using PersonalFinance.Ui.Features.Categories.Views.Dialogs;
+using PersonalFinance.Ui.Features.Expenses.Models;
+using PersonalFinance.Ui.Features.Expenses.ViewModels;
+using PersonalFinance.Ui.Features.Expenses.Views.Dialogs;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Extensions;
@@ -37,6 +40,26 @@ public sealed class UiDialogService : IUiDialogService
 
         var result = viewModel.BuildResult();
         return DialogResult<CategoryEditorResult>.Confirmed(result);
+    }
+
+    public async Task<DialogResult<ExpenseEditorResult>> ShowExpenseEditorAsync(
+        ExpenseEditorDialogOptions options,
+        CancellationToken ct)
+    {
+        var viewModel = _serviceProvider.GetRequiredService<ExpenseEditorDialogViewModel>();
+        viewModel.Initialize(options);
+
+        var dialog = _serviceProvider.GetRequiredService<ExpenseEditorDialog>();
+        dialog.DataContext = viewModel;
+
+        var dialogResult = await _contentDialogService.ShowAsync(dialog, ct);
+        if (dialogResult != ContentDialogResult.Primary)
+        {
+            return DialogResult<ExpenseEditorResult>.Cancelled();
+        }
+
+        var result = viewModel.BuildResult();
+        return DialogResult<ExpenseEditorResult>.Confirmed(result);
     }
 
     public async Task<bool> ShowConfirmAsync(

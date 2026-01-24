@@ -1,9 +1,9 @@
-using System.Text;
 using Microsoft.EntityFrameworkCore;
 using PersonalFinance.Application.Abstractions.Paging;
 using PersonalFinance.Application.Expenses.Abstractions;
 using PersonalFinance.Application.Expenses.Responses;
 using PersonalFinance.Domain.Entities;
+using PersonalFinance.Infrastructure.Search;
 
 namespace PersonalFinance.Infrastructure.Data.Repositories;
 
@@ -55,7 +55,7 @@ public sealed class ExpenseReadRepository : IExpenseReadRepository
             expenses = expenses.Where(x => x.CategoryId == categoryId);
         }
 
-        var normalizedSearch = NormalizeDescriptionSearch(descriptionSearch);
+        var normalizedSearch = TextSearchNormalizer.Normalize(descriptionSearch);
         if (normalizedSearch is not null)
         {
             expenses = expenses.Where(x => x.DescriptionSearch != null && EF.Functions.Like(x.DescriptionSearch, $"%{normalizedSearch}%"));
@@ -147,49 +147,6 @@ public sealed class ExpenseReadRepository : IExpenseReadRepository
         }
 
         return query.OrderByDescending(x => x.Expense.Date).ThenByDescending(x => x.Expense.Id);
-    }
-
-    private static string? NormalizeDescriptionSearch(string? description)
-    {
-        if (string.IsNullOrWhiteSpace(description))
-        {
-            return null;
-        }
-
-        var trimmed = description.Trim();
-        if (trimmed.Length == 0)
-        {
-            return null;
-        }
-
-        var upper = trimmed.ToUpperInvariant();
-        return CollapseWhitespace(upper);
-    }
-
-    private static string CollapseWhitespace(string value)
-    {
-        var builder = new StringBuilder(value.Length);
-        var previousWasWhitespace = false;
-
-        foreach (var character in value)
-        {
-            var isWhitespace = char.IsWhiteSpace(character);
-            if (isWhitespace)
-            {
-                if (!previousWasWhitespace)
-                {
-                    builder.Append(' ');
-                    previousWasWhitespace = true;
-                }
-
-                continue;
-            }
-
-            builder.Append(character);
-            previousWasWhitespace = false;
-        }
-
-        return builder.ToString().Trim();
     }
 
 }

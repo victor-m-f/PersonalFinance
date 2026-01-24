@@ -1,0 +1,108 @@
+<ui:ContentDialog x:Class="PersonalFinance.Ui.Features.Expenses.Views.Dialogs.ExpenseEditorDialog"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                  xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                  PrimaryButtonText="{DynamicResource Common.Save}"
+                  CloseButtonText="{DynamicResource Common.Cancel}"
+                  DefaultButton="Primary"
+                  IsPrimaryButtonEnabled="{Binding IsValid}"
+                  DialogWidth="640"
+                  DialogMaxWidth="640">
+    <ui:ContentDialog.Style>
+        <Style TargetType="ui:ContentDialog" BasedOn="{StaticResource {x:Type ui:ContentDialog}}">
+            <Setter Property="Title" Value="{DynamicResource Expenses.New}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsEditMode}" Value="True">
+                    <Setter Property="Title" Value="{DynamicResource Expenses.Edit}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </ui:ContentDialog.Style>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Content="{DynamicResource Expenses.DateLabel}" Target="{Binding ElementName=DatePicker}" />
+        <DatePicker x:Name="DatePicker"
+                    Grid.Row="1"
+                    Margin="0,4,0,0"
+                    MinWidth="420"
+                    SelectedDate="{Binding Date, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="LostFocus">
+                    <i:InvokeCommandAction Command="{Binding DateLostFocusCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </DatePicker>
+        <TextBlock Grid.Row="2"
+                   Style="{StaticResource ValidationMessageTextStyle}"
+                   Text="{Binding ElementName=DatePicker, Path=(Validation.Errors)[0].ErrorContent}"
+                   Visibility="{Binding ElementName=DatePicker, Path=(Validation.HasError), Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+        <Label Grid.Row="3" Content="{DynamicResource Expenses.AmountLabel}" Margin="0,12,0,0" Target="{Binding ElementName=AmountTextBox}" />
+        <ui:TextBox x:Name="AmountTextBox"
+                    Grid.Row="4"
+                    Margin="0,4,0,0"
+                    MinWidth="420"
+                    ClearButtonEnabled="True"
+                    Text="{Binding AmountText, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="LostFocus">
+                    <i:InvokeCommandAction Command="{Binding AmountLostFocusCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ui:TextBox>
+        <TextBlock Grid.Row="5"
+                   Style="{StaticResource ValidationMessageTextStyle}"
+                   Text="{Binding ElementName=AmountTextBox, Path=(Validation.Errors)[0].ErrorContent}"
+                   Visibility="{Binding ElementName=AmountTextBox, Path=(Validation.HasError), Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+        <Label Grid.Row="6" Content="{DynamicResource Expenses.DescriptionLabel}" Margin="0,12,0,0" Target="{Binding ElementName=DescriptionTextBox}" />
+        <ui:TextBox x:Name="DescriptionTextBox"
+                    Grid.Row="7"
+                    Margin="0,4,0,0"
+                    MinWidth="420"
+                    ClearButtonEnabled="True"
+                    Text="{Binding Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="LostFocus">
+                    <i:InvokeCommandAction Command="{Binding DescriptionLostFocusCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ui:TextBox>
+        <TextBlock Grid.Row="8"
+                   Style="{StaticResource ValidationMessageTextStyle}"
+                   Text="{Binding ElementName=DescriptionTextBox, Path=(Validation.Errors)[0].ErrorContent}"
+                   Visibility="{Binding ElementName=DescriptionTextBox, Path=(Validation.HasError), Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+        <Label Grid.Row="9" Content="{DynamicResource Expenses.CategoryLabel}" Margin="0,12,0,0" Target="{Binding ElementName=CategoryAutoSuggestBox}" />
+        <ui:AutoSuggestBox x:Name="CategoryAutoSuggestBox"
+                   Grid.Row="10"
+                   MinWidth="420"
+                   ClearButtonEnabled="True"
+                   DisplayMemberPath="DisplayName"
+                   ItemsSource="{Binding FilteredCategoryOptions}"
+                   Text="{Binding CategorySearchText, UpdateSourceTrigger=PropertyChanged}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <i:InvokeCommandAction Command="{Binding CategoryTextChangedCommand}" PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+                <i:EventTrigger EventName="SuggestionChosen">
+                    <i:InvokeCommandAction Command="{Binding CategorySuggestionChosenCommand}" PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ui:AutoSuggestBox>
+    </Grid>
+</ui:ContentDialog>

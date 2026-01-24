@@ -10,5 +10,11 @@ public partial class ExpensesPage : Page
     {
         InitializeComponent();
         DataContext = App.Services.GetRequiredService<ExpensesPageViewModel>();
+        Loaded += OnLoaded;
+    }
+
+    private void OnLoaded(object sender, System.Windows.RoutedEventArgs e)
+    {
+        System.Windows.Input.Keyboard.Focus(SearchBox);
     }
 }

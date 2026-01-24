@@ -81,12 +81,12 @@
 
         <Label Grid.Row="6" Content="{DynamicResource Categories.ParentLabel}" Margin="0,12,0,0" Target="{Binding ElementName=ParentAutoSuggestBox}" />
         <ui:AutoSuggestBox x:Name="ParentAutoSuggestBox"
-                           Grid.Row="7"
-                           MinWidth="420"
-                           ClearButtonEnabled="True"
-                           DisplayMemberPath="DisplayName"
-                           OriginalItemsSource="{Binding ParentOptions}"
-                           Text="{Binding ParentSearchText, UpdateSourceTrigger=PropertyChanged}">
+                   Grid.Row="7"
+                   MinWidth="420"
+                   ClearButtonEnabled="True"
+                   DisplayMemberPath="DisplayName"
+                   ItemsSource="{Binding FilteredParentOptions}"
+                   Text="{Binding ParentSearchText, UpdateSourceTrigger=PropertyChanged}">
             <i:Interaction.Triggers>
                     <i:EventTrigger EventName="TextChanged">
                         <i:InvokeCommandAction Command="{Binding ParentTextChangedCommand}" PassEventArgsToCommand="True" />

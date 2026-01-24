@@ -28,6 +28,7 @@ public sealed class PersonalFinanceDbContext : DbContext
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
+        ExpenseConfiguration.ConfigureSaveChanges(ChangeTracker);
         return base.SaveChangesAsync(cancellationToken);
     }
 }

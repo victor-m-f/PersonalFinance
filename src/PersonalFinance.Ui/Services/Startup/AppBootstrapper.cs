@@ -18,6 +18,7 @@ using PersonalFinance.Ui.Features.Categories.Views;
 using PersonalFinance.Ui.Features.Categories.Views.Dialogs;
 using PersonalFinance.Ui.Features.Expenses.ViewModels;
 using PersonalFinance.Ui.Features.Expenses.Views;
+using PersonalFinance.Ui.Features.Expenses.Views.Dialogs;
 using PersonalFinance.Ui.Features.Settings.Components.ViewModels;
 using PersonalFinance.Ui.Features.Settings.Views;
 using PersonalFinance.Ui.Helpers;
@@ -54,6 +55,8 @@ public static class AppBootstrapper
                 services.AddTransient<SettingsPage>();
                 services.AddTransient<ExpensesPageViewModel>();
                 services.AddTransient<ExpensesPage>();
+                services.AddTransient<ExpenseEditorDialogViewModel>();
+                services.AddTransient<ExpenseEditorDialog>();
                 services.AddTransient<CategoriesPageViewModel>();
                 services.AddTransient<CategoriesPage>();
                 services.AddTransient<CategoryEditorDialogViewModel>();
@@ -74,6 +77,7 @@ public static class AppBootstrapper
                 services.AddScoped<CreateExpenseUseCase>();
                 services.AddScoped<UpdateExpenseUseCase>();
                 services.AddScoped<DeleteExpenseUseCase>();
+                services.AddScoped<AssignExpenseCategoryUseCase>();
                 services.AddScoped<FilterCategoriesUseCase>();
                 services.AddScoped<CreateCategoryUseCase>();
                 services.AddScoped<UpdateCategoryUseCase>();
