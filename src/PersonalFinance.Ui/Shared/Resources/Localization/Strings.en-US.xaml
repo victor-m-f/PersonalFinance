@@ -2,9 +2,24 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:String x:Key="App.Title">PersonalFinance</sys:String>
+    <sys:String x:Key="Nav.Dashboard">Dashboard</sys:String>
     <sys:String x:Key="Nav.Expenses">Expenses</sys:String>
     <sys:String x:Key="Nav.Categories">Categories</sys:String>
     <sys:String x:Key="Nav.Settings">Settings</sys:String>
+    <sys:String x:Key="Dashboard.Title">Dashboard</sys:String>
+    <sys:String x:Key="Dashboard.TitleFormat">Financial overview • {0:MMMM yyyy}</sys:String>
+    <sys:String x:Key="Dashboard.PeriodLabel">Period</sys:String>
+    <sys:String x:Key="Dashboard.TotalSpent">Total spent</sys:String>
+    <sys:String x:Key="Dashboard.PeriodChange">Period change</sys:String>
+    <sys:String x:Key="Dashboard.DailyAverage">Daily average</sys:String>
+    <sys:String x:Key="Dashboard.ExpensesCount">Expenses</sys:String>
+    <sys:String x:Key="Dashboard.CategoryBreakdown">Expenses by category</sys:String>
+    <sys:String x:Key="Dashboard.RecentExpenses">Recent expenses</sys:String>
+    <sys:String x:Key="Dashboard.NoData">No data for this period</sys:String>
+    <sys:String x:Key="Dashboard.LoadError">Failed to load dashboard data.</sys:String>
+    <sys:String x:Key="Dashboard.LoadSummaryError">Failed to load summary.</sys:String>
+    <sys:String x:Key="Dashboard.LoadCategoryError">Failed to load category breakdown.</sys:String>
+    <sys:String x:Key="Dashboard.LoadRecentError">Failed to load recent expenses.</sys:String>
     <sys:String x:Key="Settings.Title">Settings</sys:String>
     <sys:String x:Key="Settings.AppearanceAndBehavior">Appearance &amp; behaviour</sys:String>
     <sys:String x:Key="Settings.ThemeTitle">App theme</sys:String>

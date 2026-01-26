@@ -2,9 +2,24 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:String x:Key="App.Title">PersonalFinance</sys:String>
+    <sys:String x:Key="Nav.Dashboard">Visão geral</sys:String>
     <sys:String x:Key="Nav.Expenses">Despesas</sys:String>
     <sys:String x:Key="Nav.Categories">Categorias</sys:String>
     <sys:String x:Key="Nav.Settings">Configurações</sys:String>
+    <sys:String x:Key="Dashboard.Title">Visão geral</sys:String>
+    <sys:String x:Key="Dashboard.TitleFormat">Visão financeira • {0:MMMM yyyy}</sys:String>
+    <sys:String x:Key="Dashboard.PeriodLabel">Período</sys:String>
+    <sys:String x:Key="Dashboard.TotalSpent">Total gasto</sys:String>
+    <sys:String x:Key="Dashboard.PeriodChange">Variação do período</sys:String>
+    <sys:String x:Key="Dashboard.DailyAverage">Média diária</sys:String>
+    <sys:String x:Key="Dashboard.ExpensesCount">Despesas</sys:String>
+    <sys:String x:Key="Dashboard.CategoryBreakdown">Despesas por categoria</sys:String>
+    <sys:String x:Key="Dashboard.RecentExpenses">Despesas recentes</sys:String>
+    <sys:String x:Key="Dashboard.NoData">Sem dados para este período</sys:String>
+    <sys:String x:Key="Dashboard.LoadError">Falha ao carregar o painel.</sys:String>
+    <sys:String x:Key="Dashboard.LoadSummaryError">Falha ao carregar o resumo.</sys:String>
+    <sys:String x:Key="Dashboard.LoadCategoryError">Falha ao carregar o detalhamento por categoria.</sys:String>
+    <sys:String x:Key="Dashboard.LoadRecentError">Falha ao carregar despesas recentes.</sys:String>
     <sys:String x:Key="Settings.Title">Configurações</sys:String>
     <sys:String x:Key="Settings.AppearanceAndBehavior">Aparência e comportamento</sys:String>
     <sys:String x:Key="Settings.ThemeTitle">Tema do aplicativo</sys:String>

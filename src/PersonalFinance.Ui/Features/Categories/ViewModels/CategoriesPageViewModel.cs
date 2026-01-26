@@ -9,7 +9,6 @@ using PersonalFinance.Shared.Results;
 using PersonalFinance.Ui.Features.Categories.Models;
 using PersonalFinance.Ui.Features.Categories.Services;
 using PersonalFinance.Ui.Shared.Collections;
-using System.Collections.ObjectModel;
 using System.Windows.Threading;
 using Wpf.Ui;
 using Wpf.Ui.Controls;

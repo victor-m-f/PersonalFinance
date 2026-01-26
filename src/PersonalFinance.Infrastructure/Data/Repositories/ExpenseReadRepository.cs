@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using PersonalFinance.Application.Abstractions.Paging;
 using PersonalFinance.Application.Expenses.Abstractions;
 using PersonalFinance.Application.Expenses.Responses;
-using PersonalFinance.Domain.Entities;
 using PersonalFinance.Infrastructure.Search;
 
 namespace PersonalFinance.Infrastructure.Data.Repositories;

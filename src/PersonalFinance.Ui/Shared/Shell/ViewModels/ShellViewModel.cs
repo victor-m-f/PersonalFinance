@@ -2,7 +2,7 @@ using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
-using PersonalFinance.Ui.Features.Expenses.Views;
+using PersonalFinance.Ui.Features.Dashboard.Views;
 using PersonalFinance.Ui.Settings;
 using PersonalFinance.Ui.Shared.Shell.Services;
 
@@ -43,7 +43,7 @@ public sealed class ShellViewModel : ObservableObject
 
         _logger.LogDebug("Theme applied: {Theme}", settings.Theme);
 
-        var navigated = ShellNavigationService.Instance.Navigate(typeof(ExpensesPage));
+        var navigated = ShellNavigationService.Instance.Navigate(typeof(DashboardPage));
         if (!navigated)
         {
             _logger.LogWarning("Failed to navigate to default page");
