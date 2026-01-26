@@ -33,6 +33,11 @@
     <Compile Remove="Features\Settings\ViewModels\SettingsPageViewModel.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Shared\Controls\HexColorPicker.xaml.cs" />
+    <Page Remove="Shared\Controls\HexColorPicker.xaml" />
+  </ItemGroup>
+
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>

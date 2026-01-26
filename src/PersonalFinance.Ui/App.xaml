@@ -16,7 +16,6 @@
             <FontFamily x:Key="SegoeFluentIcons">Segoe Fluent Icons</FontFamily>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <converters:IndentConverter x:Key="IndentConverter" />
-            <converters:ColorHexToBrushConverter x:Key="ColorHexToBrushConverter" />
 
             <Style TargetType="{x:Type ui:Card}">
                 <Setter Property="Background" Value="{DynamicResource CardBackground}" />

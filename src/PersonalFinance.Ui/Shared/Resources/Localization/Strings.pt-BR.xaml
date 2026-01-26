@@ -51,6 +51,7 @@
     <sys:String x:Key="Categories.Edit">Editar categoria</sys:String>
     <sys:String x:Key="Categories.NameLabel">Nome</sys:String>
     <sys:String x:Key="Categories.ColorLabel">Cor (#AARRGGBB)</sys:String>
+    <sys:String x:Key="Categories.ColorPickerTitle">Escolher cor</sys:String>
     <sys:String x:Key="Categories.ParentLabel">Categoria pai</sys:String>
     <sys:String x:Key="Categories.ParentNone">Sem pai</sys:String>
     <sys:String x:Key="Categories.Subcategory">Subcategoria</sys:String>

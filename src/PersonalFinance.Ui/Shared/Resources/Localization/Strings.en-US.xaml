@@ -51,6 +51,7 @@
     <sys:String x:Key="Categories.Edit">Edit category</sys:String>
     <sys:String x:Key="Categories.NameLabel">Name</sys:String>
     <sys:String x:Key="Categories.ColorLabel">Color (#AARRGGBB)</sys:String>
+    <sys:String x:Key="Categories.ColorPickerTitle">Choose color</sys:String>
     <sys:String x:Key="Categories.ParentLabel">Parent category</sys:String>
     <sys:String x:Key="Categories.ParentNone">No parent</sys:String>
     <sys:String x:Key="Categories.Subcategory">Subcategory</sys:String>
