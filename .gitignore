@@ -40,3 +40,6 @@ TestResults/
 
 # Coverage
 *.coverage
+
+# MSIX package outputs
+src/PersonalFinance.MSIX/AppPackages/
