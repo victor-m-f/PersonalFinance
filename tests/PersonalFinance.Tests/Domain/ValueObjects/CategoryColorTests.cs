@@ -1,6 +1,6 @@
 using PersonalFinance.Domain.ValueObjects;
 
-namespace PersonalFinance.Tests;
+namespace PersonalFinance.Tests.Domain.ValueObjects;
 
 public sealed class CategoryColorTests
 {
