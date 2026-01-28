@@ -2,6 +2,7 @@ using FluentValidation;
 using Microsoft.Extensions.Logging;
 using PersonalFinance.Application.Categories.Abstractions;
 using PersonalFinance.Application.Categories.Requests;
+using PersonalFinance.Application.InvoiceImport.Abstractions;
 using PersonalFinance.Shared.Results;
 
 namespace PersonalFinance.Application.Categories.UseCases;
@@ -9,15 +10,18 @@ namespace PersonalFinance.Application.Categories.UseCases;
 public sealed class DeleteCategoryUseCase
 {
     private readonly ICategoryRepository _categoryRepository;
+    private readonly ICategorySuggestionCacheInvalidator _categoryCacheInvalidator;
     private readonly IValidator<DeleteCategoryRequest> _validator;
     private readonly ILogger<DeleteCategoryUseCase> _logger;
 
     public DeleteCategoryUseCase(
         ICategoryRepository categoryRepository,
+        ICategorySuggestionCacheInvalidator categoryCacheInvalidator,
         IValidator<DeleteCategoryRequest> validator,
         ILogger<DeleteCategoryUseCase> logger)
     {
         _categoryRepository = categoryRepository;
+        _categoryCacheInvalidator = categoryCacheInvalidator;
         _validator = validator;
         _logger = logger;
     }
@@ -37,6 +41,7 @@ public sealed class DeleteCategoryUseCase
         }
 
         await _categoryRepository.DeleteByIdAsync(request.Id, ct);
+        _categoryCacheInvalidator.Invalidate();
 
         _logger.LogInformation(
             "Category deleted successfully with Id {CategoryId}",

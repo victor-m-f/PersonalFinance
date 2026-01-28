@@ -39,8 +39,8 @@
                         <ControlTemplate TargetType="{x:Type ui:Card}">
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
 
                                 <Border

@@ -36,6 +36,7 @@ public sealed class CategoriesPageViewModel : ObservableObject
     private int _pageNumber = 1;
     private int _totalCount;
     private int _pageCount;
+    private int _displayedRootCount;
     private bool _showRootsOnly;
     private bool _isBusy;
     private bool _isInitialized;
@@ -94,6 +95,18 @@ public sealed class CategoriesPageViewModel : ObservableObject
         }
     }
 
+    public int DisplayedRootCount
+    {
+        get => _displayedRootCount;
+        private set
+        {
+            if (SetProperty(ref _displayedRootCount, value))
+            {
+                OnPropertyChanged(nameof(ShowingText));
+            }
+        }
+    }
+
     public int PageCount
     {
         get => _pageCount;
@@ -123,7 +136,7 @@ public sealed class CategoriesPageViewModel : ObservableObject
         }
     }
 
-    public string ShowingText => $"{GetString("Categories.Showing", "Showing")} {Items.Count} {GetString("Categories.Of", "of")} {TotalCount}";
+    public string ShowingText => $"{GetString("Categories.Showing", "Showing")} {DisplayedRootCount} {GetString("Categories.Of", "of")} {TotalCount}";
 
     public string PageText => PageCount == 0
         ? $"{GetString("Categories.Page", "Page")} 0 {GetString("Categories.Of", "of")} 0"
@@ -533,6 +546,7 @@ public sealed class CategoriesPageViewModel : ObservableObject
             TotalCount = result.TotalCount;
             PageCount = result.PageCount;
             PageNumber = result.PageNumber;
+            DisplayedRootCount = items.Count(item => item.ParentId is null);
             OnPropertyChanged(nameof(ShowingText));
         }, DispatcherPriority.Background, ct);
     }

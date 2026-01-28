@@ -6,6 +6,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="OxyPlot.Wpf" Version="2.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
@@ -32,11 +38,14 @@
     <Compile Remove="Features\Common\Commands\RelayCommand.cs" />
     <Compile Remove="Features\Common\ViewModels\ObservableObject.cs" />
     <Compile Remove="Features\Settings\ViewModels\SettingsPageViewModel.cs" />
+    <Compile Remove="Features\Settings\Components\ViewModels\LlmSettingsViewModel.cs" />
+    <Compile Remove="Features\Settings\Components\LlmSettingsControl.xaml.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="Shared\Controls\HexColorPicker.xaml.cs" />
     <Page Remove="Shared\Controls\HexColorPicker.xaml" />
+    <Page Remove="Features\Settings\Components\LlmSettingsControl.xaml" />
   </ItemGroup>
 
   <PropertyGroup>

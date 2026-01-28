@@ -4,6 +4,7 @@ using PersonalFinance.Application.Abstractions;
 using PersonalFinance.Application.Categories.Abstractions;
 using PersonalFinance.Application.Categories.Requests;
 using PersonalFinance.Application.Categories.Responses;
+using PersonalFinance.Application.InvoiceImport.Abstractions;
 using PersonalFinance.Domain.Entities;
 using PersonalFinance.Domain.ValueObjects;
 using PersonalFinance.Shared.Results;
@@ -13,17 +14,20 @@ namespace PersonalFinance.Application.Categories.UseCases;
 public sealed class CreateCategoryUseCase
 {
     private readonly ICategoryRepository _categoryRepository;
+    private readonly ICategorySuggestionCacheInvalidator _categoryCacheInvalidator;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IValidator<CreateCategoryRequest> _validator;
     private readonly ILogger<CreateCategoryUseCase> _logger;
 
     public CreateCategoryUseCase(
         ICategoryRepository categoryRepository,
+        ICategorySuggestionCacheInvalidator categoryCacheInvalidator,
         IUnitOfWork unitOfWork,
         IValidator<CreateCategoryRequest> validator,
         ILogger<CreateCategoryUseCase> logger)
     {
         _categoryRepository = categoryRepository;
+        _categoryCacheInvalidator = categoryCacheInvalidator;
         _unitOfWork = unitOfWork;
         _validator = validator;
         _logger = logger;
@@ -44,6 +48,7 @@ public sealed class CreateCategoryUseCase
 
         await _categoryRepository.AddAsync(category, ct);
         await _unitOfWork.SaveChangesAsync(ct);
+        _categoryCacheInvalidator.Invalidate();
 
         _logger.LogInformation(
             "Category created successfully with Id {CategoryId}",

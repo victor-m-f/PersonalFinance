@@ -1,0 +1,48 @@
+<UserControl x:Class="PersonalFinance.Ui.Features.Settings.Components.ImportSettingsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
+    <ui:Card Padding="16" Margin="0,16,0,0">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <ui:FontIcon Glyph="&#xE8B9;" FontFamily="{DynamicResource SegoeFluentIcons}" FontSize="28" VerticalAlignment="Top" Margin="0,0,12,0" />
+            <StackPanel Grid.Column="1">
+                <TextBlock Text="{DynamicResource Settings.ImportTitle}" FontWeight="SemiBold" />
+                <TextBlock Text="{DynamicResource Settings.ImportDescription}" Opacity="0.7" Margin="0,4,0,8" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                    <TextBlock Text="{DynamicResource Settings.ImportOcrLanguage}" VerticalAlignment="Center" Margin="0,0,8,0" />
+                    <ComboBox MinWidth="160"
+                              ItemsSource="{Binding OcrLanguageOptions}"
+                              DisplayMemberPath="DisplayName"
+                              SelectedItem="{Binding SelectedOcrLanguage, Mode=TwoWay}" />
+                </StackPanel>
+                <ItemsControl ItemsSource="{Binding SetupItems}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,0,0,8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Text="{Binding Title}" FontWeight="SemiBold" />
+                                    <TextBlock Text="{Binding StatusText}" FontSize="12" Opacity="0.7" />
+                                    <ProgressBar Height="6" Margin="0,6,0,0" Value="{Binding Progress}" Maximum="100" />
+                                </StackPanel>
+                                <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="12,0,0,0"
+                                           Text="{Binding Progress, StringFormat={}{0}%}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+            <ui:Button Grid.Column="2" VerticalAlignment="Top" Content="{DynamicResource Settings.ImportRefresh}"
+                       Command="{Binding RefreshCommand}" />
+        </Grid>
+    </ui:Card>
+</UserControl>

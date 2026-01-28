@@ -59,7 +59,7 @@ public sealed class CategoryEditorDialogViewModel : ObservableObject, IDataError
         get => _colorHex;
         set
         {
-            var normalized = value?.Trim().ToUpperInvariant() ?? string.Empty;
+            var normalized = NormalizeColorHex(value);
             if (SetProperty(ref _colorHex, normalized))
             {
                 if (!_suppressValidation)
@@ -243,6 +243,17 @@ public sealed class CategoryEditorDialogViewModel : ObservableObject, IDataError
 
         var selected = options.FirstOrDefault(option => option.Id == parentId);
         return selected?.DisplayName ?? string.Empty;
+    }
+
+    private static string NormalizeColorHex(string? value)
+    {
+        var normalized = value?.Trim().ToUpperInvariant() ?? string.Empty;
+        if (normalized.Length == 7 && normalized.StartsWith('#'))
+        {
+            return "#FF" + normalized[1..];
+        }
+
+        return normalized;
     }
 
     private string ValidateName()

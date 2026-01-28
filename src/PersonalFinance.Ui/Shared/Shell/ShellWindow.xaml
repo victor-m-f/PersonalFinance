@@ -8,6 +8,7 @@
                  xmlns:expenses="clr-namespace:PersonalFinance.Ui.Features.Expenses.Views"
                  xmlns:categories="clr-namespace:PersonalFinance.Ui.Features.Categories.Views"
                  xmlns:settings="clr-namespace:PersonalFinance.Ui.Features.Settings.Views"
+                 xmlns:importExpenses="clr-namespace:PersonalFinance.Ui.Features.ImportExpenses.Views"
                  Title="{DynamicResource App.Title}"
                  Width="1200"
                  Height="800"
@@ -72,6 +73,14 @@
                                        CommandParameter="{Binding TargetPageType, RelativeSource={RelativeSource Self}}">
                     <ui:NavigationViewItem.Icon>
                         <ui:SymbolIcon Symbol="Money24" FontSize="26" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem Content="{DynamicResource Nav.ImportExpenses}"
+                                       TargetPageType="{x:Type importExpenses:ImportExpensesPage}"
+                                       Command="{Binding NavigateCommand}"
+                                       CommandParameter="{Binding TargetPageType, RelativeSource={RelativeSource Self}}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="ArrowUpload24" FontSize="26" />
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
                 <ui:NavigationViewItem Content="{DynamicResource Nav.Categories}"

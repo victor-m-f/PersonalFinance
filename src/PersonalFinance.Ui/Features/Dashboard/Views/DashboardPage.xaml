@@ -93,7 +93,7 @@
                     <Grid Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <oxy:PlotView Model="{Binding CategoryChartModel}"
                                       Height="360"
-                                      Width="560"
+                                      Width="720"
                                       Background="Transparent"
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center" />

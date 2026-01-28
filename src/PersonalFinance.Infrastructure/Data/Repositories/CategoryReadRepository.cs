@@ -26,6 +26,11 @@ public sealed class CategoryReadRepository : ICategoryReadRepository
     {
         var query = _dbContext.Categories.AsNoTracking();
 
+        if (includeAll && parentId is null && page is not null)
+        {
+            return await FilterByRootPageAsync(query, name, sortBy, sortDescending, page, ct);
+        }
+
         if (!includeAll)
         {
             if (parentId.HasValue)
@@ -71,6 +76,86 @@ public sealed class CategoryReadRepository : ICategoryReadRepository
 
         return new PagedResult<CategoryListItemResponse>(
             pagedItems,
+            normalizedPage.PageNumber,
+            normalizedPage.PageSize,
+            totalCount);
+    }
+
+    private async Task<PagedResult<CategoryListItemResponse>> FilterByRootPageAsync(
+        IQueryable<Category> baseQuery,
+        string? name,
+        string? sortBy,
+        bool sortDescending,
+        PageRequest page,
+        CancellationToken ct)
+    {
+        var rootQuery = baseQuery.Where(x => x.ParentId == null);
+        if (name is not null)
+        {
+            rootQuery = rootQuery.Where(x => EF.Functions.Like(x.Name, $"%{name}%"));
+        }
+
+        var totalCount = await rootQuery.CountAsync(ct);
+        var orderedRoots = ApplySorting(rootQuery, sortBy, sortDescending);
+
+        var normalizedPage = PageRequest.Normalize(page);
+        var skip = (normalizedPage.PageNumber - 1) * normalizedPage.PageSize;
+
+        var rootPage = await orderedRoots
+            .Skip(skip)
+            .Take(normalizedPage.PageSize)
+            .Select(x => new CategoryListItemResponse
+            {
+                Id = x.Id,
+                Name = x.Name,
+                ColorHex = x.Color.Value,
+                ParentId = x.ParentId
+            })
+            .ToListAsync(ct);
+
+        if (rootPage.Count == 0)
+        {
+            return new PagedResult<CategoryListItemResponse>(
+                Array.Empty<CategoryListItemResponse>(),
+                normalizedPage.PageNumber,
+                normalizedPage.PageSize,
+                totalCount);
+        }
+
+        var rootIds = rootPage.Select(x => x.Id).ToHashSet();
+        var allCategories = await baseQuery.ToListAsync(ct);
+
+        var parentMap = allCategories.ToDictionary(x => x.Id, x => x.ParentId);
+        var included = new List<CategoryListItemResponse>();
+
+        foreach (var category in allCategories)
+        {
+            var current = category.Id;
+            var guard = new HashSet<Guid>();
+            while (parentMap.TryGetValue(current, out var parentId) && parentId.HasValue)
+            {
+                if (!guard.Add(current))
+                {
+                    break;
+                }
+
+                current = parentId.Value;
+            }
+
+            if (rootIds.Contains(current))
+            {
+                included.Add(new CategoryListItemResponse
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                    ColorHex = category.Color.Value,
+                    ParentId = category.ParentId
+                });
+            }
+        }
+
+        return new PagedResult<CategoryListItemResponse>(
+            included,
             normalizedPage.PageNumber,
             normalizedPage.PageSize,
             totalCount);

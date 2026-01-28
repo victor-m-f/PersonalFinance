@@ -8,6 +8,8 @@ public sealed class PersonalFinanceDbContext : DbContext
 {
     public DbSet<Category> Categories { get; private set; } = default!;
     public DbSet<Expense> Expenses { get; private set; } = default!;
+    public DbSet<ImportedDocument> ImportedDocuments { get; private set; } = default!;
+    public DbSet<VendorCategoryRule> VendorCategoryRules { get; private set; } = default!;
 
     public PersonalFinanceDbContext(DbContextOptions<PersonalFinanceDbContext> options)
         : base(options)

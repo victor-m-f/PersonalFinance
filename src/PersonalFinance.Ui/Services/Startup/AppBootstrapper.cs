@@ -12,6 +12,11 @@ using PersonalFinance.Application.Categories.UseCases;
 using PersonalFinance.Application.Categories.Validators;
 using PersonalFinance.Application.Expenses.Abstractions;
 using PersonalFinance.Application.Expenses.UseCases;
+using PersonalFinance.Application.InvoiceImport.Abstractions;
+using PersonalFinance.Application.InvoiceImport.Settings;
+using PersonalFinance.Application.InvoiceImport.UseCases;
+using PersonalFinance.Infrastructure.Documents;
+using PersonalFinance.Infrastructure.InvoiceImport;
 using PersonalFinance.Infrastructure.Data;
 using PersonalFinance.Infrastructure.Data.Repositories;
 using PersonalFinance.Ui.Features.Categories.Services;
@@ -23,6 +28,9 @@ using PersonalFinance.Ui.Features.Dashboard.Views;
 using PersonalFinance.Ui.Features.Expenses.ViewModels;
 using PersonalFinance.Ui.Features.Expenses.Views;
 using PersonalFinance.Ui.Features.Expenses.Views.Dialogs;
+using PersonalFinance.Ui.Features.ImportExpenses.ViewModels;
+using PersonalFinance.Ui.Features.ImportExpenses.Views;
+using PersonalFinance.Ui.Features.ImportExpenses.Services;
 using PersonalFinance.Ui.Features.Settings.Components.ViewModels;
 using PersonalFinance.Ui.Features.Settings.Views;
 using PersonalFinance.Ui.Helpers;
@@ -33,6 +41,7 @@ using PersonalFinance.Ui.Shared.Shell.Services;
 using PersonalFinance.Ui.Shared.Shell.ViewModels;
 using Serilog;
 using Serilog.Events;
+using System.Net.Http;
 using System.IO;
 using Wpf.Ui;
 
@@ -43,10 +52,18 @@ public static class AppBootstrapper
     public static IHost BuildHost()
     {
         return Host.CreateDefaultBuilder()
-            .ConfigureServices(services =>
+            .ConfigureServices((context, services) =>
             {
+                services.Configure<InvoiceInterpreterOptions>(
+                    context.Configuration.GetSection("InvoiceInterpreter"));
+                services.Configure<CategorySuggestionOptions>(
+                    context.Configuration.GetSection("CategorySuggestion"));
+                services.Configure<LlmProviderOptions>(
+                    context.Configuration.GetSection("InvoiceInterpreter:Llm"));
                 services.AddValidatorsFromAssemblyContaining<CreateCategoryRequestValidator>();
                 services.AddSingleton<AppSettingsStore>();
+                services.AddSingleton<IOcrLanguageProvider, OcrLanguageProvider>();
+                services.AddSingleton<ILlmSettingsProvider, LlmSettingsProvider>();
                 services.AddSingleton<ILocalizationService, LocalizationService>();
                 services.AddSingleton<ISnackbarService, SnackbarService>();
                 services.AddSingleton<IContentDialogService, ContentDialogService>();
@@ -56,9 +73,12 @@ public static class AppBootstrapper
                 services.AddTransient<ThemeSettingsViewModel>();
                 services.AddTransient<LanguageSettingsViewModel>();
                 services.AddTransient<LoggingSettingsViewModel>();
+                services.AddTransient<ImportSettingsViewModel>();
                 services.AddTransient<SettingsPage>();
                 services.AddTransient<ExpensesPageViewModel>();
                 services.AddTransient<ExpensesPage>();
+                services.AddTransient<ImportExpensesPageViewModel>();
+                services.AddTransient<ImportExpensesPage>();
                 services.AddTransient<ExpenseEditorDialogViewModel>();
                 services.AddTransient<ExpenseEditorDialog>();
                 services.AddTransient<DashboardPageViewModel>();
@@ -80,6 +100,21 @@ public static class AppBootstrapper
                 services.AddScoped<IExpenseRepository, ExpenseRepository>();
                 services.AddScoped<IExpenseReadRepository, ExpenseReadRepository>();
                 services.AddScoped<IDashboardReadRepository, DashboardReadRepository>();
+                services.AddScoped<IImportedDocumentRepository, ImportedDocumentRepository>();
+                services.AddScoped<IImportedDocumentStorage, LocalImportedDocumentStorage>();
+                services.AddScoped<IDocumentTextExtractor, DocumentTextExtractor>();
+                services.AddScoped<ICategorySuggestionRepository, CategorySuggestionRepository>();
+                services.AddScoped<IVendorCategoryRuleRepository, VendorCategoryRuleRepository>();
+                services.AddSingleton<CategorySuggestionCache>();
+                services.AddSingleton<ICategorySuggestionCache>(sp => sp.GetRequiredService<CategorySuggestionCache>());
+                services.AddSingleton<ICategorySuggestionCacheInvalidator>(sp => sp.GetRequiredService<CategorySuggestionCache>());
+                services.AddScoped<ICategorySuggestionService, CategorySuggestionService>();
+                services.AddScoped<LlmJsonInterpreter>();
+                services.AddScoped<IImportSetupService, ImportSetupService>();
+                services.AddScoped<IInvoiceInterpreter, InvoiceInterpreter>();
+                services.AddSingleton<LocalLlmModelStore>();
+                services.AddSingleton<LocalLlmRuntime>();
+                services.AddSingleton(new HttpClient());
                 services.AddScoped<FilterExpensesUseCase>();
                 services.AddScoped<CreateExpenseUseCase>();
                 services.AddScoped<UpdateExpenseUseCase>();
@@ -88,6 +123,11 @@ public static class AppBootstrapper
                 services.AddScoped<GetDashboardSummaryUseCase>();
                 services.AddScoped<GetDashboardCategoryBreakdownUseCase>();
                 services.AddScoped<GetDashboardRecentExpensesUseCase>();
+                services.AddScoped<ImportDocumentUseCase>();
+                services.AddScoped<ParseDocumentUseCase>();
+                services.AddScoped<ReviewDraftUseCase>();
+                services.AddScoped<ConfirmImportUseCase>();
+                services.AddScoped<AddVendorCategoryRuleUseCase>();
                 services.AddScoped<FilterCategoriesUseCase>();
                 services.AddScoped<CreateCategoryUseCase>();
                 services.AddScoped<UpdateCategoryUseCase>();
