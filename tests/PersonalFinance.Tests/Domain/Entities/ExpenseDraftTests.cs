@@ -71,7 +71,7 @@ public sealed class ExpenseDraftTests
         var confidence = CreateConfidence();
 
         // Act
-        var result = ExpenseDraft.Create(documentId, null, false, confidence, Array.Empty<ExpenseDraftItem>());
+        var result = ExpenseDraft.Create(documentId, null!, false, confidence, Array.Empty<ExpenseDraftItem>());
 
         // Assert
         Assert.True(result.IsSuccess);
@@ -87,7 +87,7 @@ public sealed class ExpenseDraftTests
         var confidence = CreateConfidence();
 
         // Act
-        var result = ExpenseDraft.Create(documentId, "raw", false, confidence, null);
+        var result = ExpenseDraft.Create(documentId, "raw", false, confidence, null!);
 
         // Assert
         Assert.True(result.IsSuccess);
