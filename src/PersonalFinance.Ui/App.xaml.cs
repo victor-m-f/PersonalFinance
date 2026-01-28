@@ -34,7 +34,10 @@ public partial class App : System.Windows.Application
 			{
 				using var scope = Services.CreateScope();
 				var dbContext = scope.ServiceProvider.GetRequiredService<PersonalFinanceDbContext>();
+				logger.LogInformation("Database path: {ConnectionString}", dbContext.Database.GetConnectionString());
 				dbContext.Database.Migrate();
+				var expenseCount = dbContext.Expenses.Count();
+				logger.LogInformation("Database expense count: {ExpenseCount}", expenseCount);
 				logger.LogInformation("Database migration completed");
 			}
 			catch (Exception ex)

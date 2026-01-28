@@ -1,0 +1,6 @@
+MainPackage=C:\Development\VictorFernandes\PersonalFinance\src\PersonalFinance.MSIX\bin\x64\Release\Upload\PersonalFinance.MSIX_1.0.21.0_x64.msix
+SymbolPackage=C:\Development\VictorFernandes\PersonalFinance\src\PersonalFinance.MSIX\bin\x64\Release\Upload\PersonalFinance.MSIX_1.0.21.0\PersonalFinance.MSIX_1.0.21.0_x64.appxsym
+ResourcePack=C:\Development\VictorFernandes\PersonalFinance\src\PersonalFinance.MSIX\bin\x64\Release\Upload\PersonalFinance.MSIX_1.0.21.0_scale-100.msix
+ResourcePack=C:\Development\VictorFernandes\PersonalFinance\src\PersonalFinance.MSIX\bin\x64\Release\Upload\PersonalFinance.MSIX_1.0.21.0_scale-125.msix
+ResourcePack=C:\Development\VictorFernandes\PersonalFinance\src\PersonalFinance.MSIX\bin\x64\Release\Upload\PersonalFinance.MSIX_1.0.21.0_scale-150.msix
+ResourcePack=C:\Development\VictorFernandes\PersonalFinance\src\PersonalFinance.MSIX\bin\x64\Release\Upload\PersonalFinance.MSIX_1.0.21.0_scale-400.msix

@@ -48,6 +48,9 @@
                 </Grid>
             </ui:NavigationView.ContentOverlay>
             <ui:NavigationView.Resources>
+                <Style TargetType="{x:Type ui:NavigationViewContentPresenter}" BasedOn="{StaticResource {x:Type ui:NavigationViewContentPresenter}}">
+                    <Setter Property="Template" Value="{StaticResource DefaultNavigationViewContentPresenterControlTemplate}" />
+                </Style>
                 <Style TargetType="{x:Type ui:NavigationViewItem}" BasedOn="{StaticResource NavigationViewItemDefaultStyle}">
                     <Setter Property="ContentTemplate">
                         <Setter.Value>

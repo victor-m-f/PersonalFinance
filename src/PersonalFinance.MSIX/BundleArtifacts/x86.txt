@@ -1,0 +1,2 @@
+MainPackage=C:\Development\VictorFernandes\PersonalFinance\src\PersonalFinance.MSIX\bin\x86\Release\PersonalFinance.MSIX_1.0.21.0_x86.msix
+SymbolPackage=C:\Development\VictorFernandes\PersonalFinance\src\PersonalFinance.MSIX\obj\x86\Release\Symbols\PersonalFinance.MSIX_1.0.21.0_x86.appxsym

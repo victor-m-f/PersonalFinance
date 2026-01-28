@@ -90,8 +90,17 @@ public static class AppBootstrapper
                 services.AddSingleton<IUiDialogService, UiDialogService>();
                 services.AddDbContext<PersonalFinanceDbContext>(options =>
                 {
-                    Directory.CreateDirectory(FileSystemPaths.LocalAppDataFolder);
-                    var dbPath = Path.Combine(FileSystemPaths.LocalAppDataFolder, "personalfinance.db");
+                    var configuredPath = context.Configuration["Database:Path"];
+                    var dbPath = string.IsNullOrWhiteSpace(configuredPath)
+                        ? Path.Combine(FileSystemPaths.LocalAppDataFolder, "personalfinance.db")
+                        : Path.GetFullPath(configuredPath);
+
+                    var dbDirectory = Path.GetDirectoryName(dbPath);
+                    if (!string.IsNullOrWhiteSpace(dbDirectory))
+                    {
+                        Directory.CreateDirectory(dbDirectory);
+                    }
+
                     options.UseSqlite($"Data Source={dbPath}");
                 });
                 services.AddScoped<ICategoryReadRepository, CategoryReadRepository>();
